@@ -8,14 +8,14 @@ class Product extends Model
 {
     //
     protected $fillable = [
-        'name', 'price', 'priceSale','quantity','description','category_id'
+        'name', 'price', 'priceSale','quantity','description','categories_id'
     ];
 
     public function comments(){
     	return $this->hasMany('App\Comment');
     }
 
-    public function order-details(){
+    public function order_details(){
     	return $this->hasMany('App\Order-detail');
     }
 
