@@ -4,35 +4,39 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Price</th>
-          <th>PriceSale</th>
-          <th>Quantity</th>
-          <th>Description</th>
-          <th>Categories_id</th>
-           <th>Image</th>
-          <th>Edit</th>
-          <th>Delete</th>
+          <th style="text-align: center;">ID</th>
+          <th style="text-align: center;">Name</th>
+          <th style="text-align: center;">Price</th>
+          <th style="text-align: center;" >PriceSale</th>
+          <th style="text-align: center;">Quantity</th>
+          <th style="text-align: center;">Description</th>
+          <th style="text-align: center;">Categories_id</th>
+           <th style="text-align: center;">Image</th>
+          <th style="text-align: center;">Edit</th>
+          <th style="text-align: center;">Delete</th>
 
 
         </tr>
       </thead>
       <tbody>
         @foreach($products as $item)
+        <?php 
+            $img = App\Image::where('product_id',$item->id)->first();
+         ?>
         <tr>
-          <td>{{$item['id']}}</td>
-          <td>{{$item['name']}}</td>
-          <td>{{$item['price']}}</td>
-          <td>{{$item['priceSale']}}</td>
-          <td>{{$item['quantity']}}</td>
-          <td>{{$item['description']}}</td>
-          <td>{{$item['categories_id']}}</td>
-         
-          <td> <img src="{{asset($item['images'][0]['path'])}}">   </td>
-            
-          <td><a href="{{route('edit-product',$item['id'])}} " class="btn btn-primary">Edit</a> </td> 
-           <td> <form action="{{ route('delete',$item['id'])}}" method="">
+          <td style="text-align: center;">{{$item->id}}</td>
+          <td style="text-align: center;">{{$item->name}}</td>
+          <td style="text-align: center;">{{$item->price}}</td>
+          <td style="text-align: center;">{{$item->priceSale}}</td>
+          <td style="text-align: center;">{{$item->quantity}}</td>
+          <td style="text-align: center;">{{$item->description}}</td>
+          <td style="text-align: center;">{{$item->category_id}}</td>
+          
+          <td style="text-align: center;">
+           <img src="{{asset($img->path)}}">  
+            </td>
+          <td style="text-align: center;"><a href="{{route('edit-product',$item->id)}} " class="btn btn-primary">Edit</a> </td> 
+           <td style="text-align: center;"> <form action="{{ route('delete-product',$item->id)}}" method="">
                 @csrf
                 <button type="submit" class="btn btn-danger">Delete</button> 
             </form></td>

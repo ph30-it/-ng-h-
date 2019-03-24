@@ -5,7 +5,8 @@
       <thead>
         <tr>
           <th>ID</th>
-          <th>Name</th>
+          <th>Path</th>
+          <th>Product_id</th>
           <th>Created-at</th>
           <th>Update-at</th>
           <th>Edit</th>
@@ -15,14 +16,15 @@
         </tr>
       </thead>
       <tbody>
-        @foreach($category as $item)
+        @foreach($image as $item)
         <tr>
           <td>{{$item->id}}</td>
-          <td>{{$item->name}}</td>
+          <td style="width:100px"> <img src="{{asset($item->path)}}"> </td>
+           <td>{{$item->product_id}}</td>
           <td>{{$item->created_at}}</td>
           <td>{{$item->updated_at}}</td>
-          <td><a href="{{route('edit-category',$item->id)}} " class="btn btn-primary">Edit</a> </td> 
-           <td> <form action="{{ route('delete-category',$item->id)}}" method="">
+          <td><a href="{{route('edit-image',$item->id)}} " class="btn btn-primary">Edit</a> </td> 
+           <td> <form action="{{ route('delete-image',$item->id)}}" method="">
                 @csrf
                 <button type="submit" class="btn btn-danger">Delete</button> 
             </form></td>
@@ -30,5 +32,5 @@
         @endforeach
       </tbody>
     </table>
-   <a href="{{route('create-category',$item->id) }}"class="btn btn-primary">Create</a>
+   <a href="{{route('create-image',$item->id) }}"class="btn btn-primary">Create</a>
 @endsection

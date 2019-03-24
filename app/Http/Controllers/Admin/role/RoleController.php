@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin\product;
+namespace App\Http\Controllers\Admin\role;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Product;
-use App\Category;
-use App\Image;
+use App\Role;
 
-class AdminController extends Controller
+class RoleController extends Controller
 {
 	/**
      * Display the specified resource.
@@ -17,27 +15,27 @@ class AdminController extends Controller
      * @return \Illuminate\Http\Response
      */
    public function index(){
-   	$products =Product::all();
-   	return view('admin.product.home',compact('products','image'));
+   	$role =Role::all();
+   	return view('admin.role.index',compact('role'));
    }
     /**
      *
      *
      * @return \Illuminate\Http\Response
      */
-    public function delete($id){
+    public function destroy($id){
 
 
-        $products=Product::find($id);
-        if ($products!=null) {
+        $role=Role::find($id);
+        if ($role!=null) {
         	# code...
       
-        $products->delete();
+        $role->delete();
         //cach 2 
         // $products::destroy($id);
-        return redirect()->route('index-product');
+        return redirect()->route('index-role');
     }
-    return redirect()->route('index-product');
+    return redirect()->route('index-role');
     }
       /**
      * Show the form for creating a new resource.
@@ -46,8 +44,8 @@ class AdminController extends Controller
      */
      public function create()
     {
-    	 $categoryID= Category::pluck('name', 'id');
-        return view('admin.product.create', compact('categoryID'));
+
+        return view('admin.role.create');
     }
       /**
      * Store a newly created resource in storage.
@@ -59,8 +57,8 @@ class AdminController extends Controller
     {
 
         $data= $request->all();
-        Product::create($data);
-        return redirect()->route('index-product');
+        Role::create($data);
+        return redirect()->route('index-role');
     }
  /**
      * 
@@ -70,9 +68,8 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        $products= Product::find($id);
-        $categoryID= Category::pluck('name', 'id');
-        return view('admin.product.edit', compact('products', 'categoryID'));
+        $role= Role::find($id);
+        return view('admin.role.edit', compact('role'));
     }
 
     /**
@@ -85,9 +82,9 @@ class AdminController extends Controller
     public function update(Request $request, $id)
     {
         
-        $products = Product::find($id);
+        $role = Role::find($id);
         $data= $request->all();
-        $products->update($data);
-        return redirect()->route('index-product');
+        $role->update($data);
+        return redirect()->route('index-role');
     }
 }

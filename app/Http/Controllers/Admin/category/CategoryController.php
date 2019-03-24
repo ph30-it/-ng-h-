@@ -1,24 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
-
+namespace App\Http\Controllers\Admin\category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\User;
-
-class HomeController extends Controller
+use App\category;
+class CategoryController extends Controller
 {
-    /**
+	  /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $user=User::all();
-        return view('admin.user.home',compact('user'));
-
-        }    
+        $category=Category::all();
+        return view('admin.category.index',compact('category'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -27,19 +24,23 @@ class HomeController extends Controller
      */
     public function create()
     {
-        //
-    }
 
-    /**
+        return view('admin.category.create');
+    }
+      /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+     public function store(Request $request)
     {
-        //
+
+        $data= $request->all();
+        Category::create($data);
+        return redirect()->route('index-category');
     }
+ /**
 
     /**
      * Display the specified resource.
@@ -60,11 +61,12 @@ class HomeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category= Category::find($id);
+        return view('admin.category.edit', compact('category'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * 
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -72,7 +74,11 @@ class HomeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+        $category = Category::find($id);
+        $data= $request->all();
+        $category->update($data);
+        return redirect()->route('index-category');
     }
 
     /**
@@ -83,6 +89,16 @@ class HomeController extends Controller
      */
     public function destroy($id)
     {
-        //
+         $products=Category::find($id);
+        if ($products!=null) {
+        	# code...
+      
+        $products->delete();
+        //cach 2 
+        // $products::destroy($id);
+        return redirect()->route('index-category');
     }
+    return redirect()->route('index-category');
+    }
+    //
 }

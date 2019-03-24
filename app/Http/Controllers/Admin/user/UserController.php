@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\user;  
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Role;
 
-class HomeController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,20 +26,23 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+     public function create()
     {
-        //
+         $role= Role::pluck('name', 'id');
+        return view('admin.user.create', compact('role'));
     }
-
-    /**
+      /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+     public function store(Request $request)
     {
-        //
+
+        $data= $request->all();
+        User::create($data);
+        return redirect()->route('index-user');
     }
 
     /**
@@ -60,11 +64,13 @@ class HomeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user= User::find($id);
+        $role= Role::pluck('name', 'id');
+        return view('admin.user.edit', compact('user', 'role'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * 
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -72,7 +78,11 @@ class HomeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+        $user = User::find($id);
+        $data= $request->all();
+        $user->update($data);
+        return redirect()->route('index-user');
     }
 
     /**
@@ -83,6 +93,15 @@ class HomeController extends Controller
      */
     public function destroy($id)
     {
-        //
+         $user=User::find($id);
+        if ($user!=null) {
+            # code...
+      
+        $user->delete();
+        //cach 2 
+        // $products::destroy($id);
+        return redirect()->route('index-user');
+    }
+    return redirect()->route('index-user');
     }
 }
