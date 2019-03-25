@@ -61,7 +61,7 @@ Route::group(['namespace'=>'role'],function(){
 Route::get('/role','RoleController@index')->name('index-role');
 Route::get('/role/{id}','RoleController@destroy')->name('delete-role');
 Route::get('/create-role', 'RoleController@create')->name('create-role');
-Route::post('/role', 'RoleController@store')->name('adduser');
+Route::post('/role', 'RoleController@store')->name('addrole');
 Route::get('/role/{id}/edit', 'RoleController@edit')->name('edit-role');
 Route::put('/role/{id}', 'RoleController@update')->name('update-role');
 

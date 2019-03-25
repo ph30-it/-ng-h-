@@ -25,8 +25,8 @@
 	    <label for="description">Description:</label>
 	    <input type="text" class="form-control" id="description" name="description">
 	  </div>
-	  <label for="categories_id">Category:</label>
-	    <select name="categories_id" id="categories_id">
+	  <label for="category_id">Category:</label>
+	    <select name="category_id" id="category_id">
 	    	@foreach ($categoryID as $key => $value)
 	    		<option value="{{$key}}"> {{ $value }}</option>
 	    	@endforeach

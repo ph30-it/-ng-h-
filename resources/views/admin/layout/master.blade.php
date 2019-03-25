@@ -91,10 +91,13 @@
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Tables</a>
                         <ul class="sub-menu children dropdown-menu">
-                             <li><i class="fa fa-table"></i><a href="tables-basic.html">User Table</a></li>
-                            <li><i class="fa fa-table"></i><a href="tables-data.html">Product Table</a></li>
+                             <li><i class="fa fa-table"></i><a href="{{Route('index-user')}}">User Table</a></li>
+                            <li><i class="fa fa-table"></i><a href="{{Route('index-product')}}">Product Table</a></li>
                             <li><i class="fa fa-table"></i><a href="tables-data.html">Oder Table</a></li>
-                            <li><i class="fa fa-table"></i><a href="tables-data.html">Comment Table</a></li>
+                            <li><i class="fa fa-table"></i><a href="{{Route('index-image')}}">Image Table</a></li>
+                            <li><i class="fa fa-table"></i><a href="{{Route('index-role')}}">Role Table</a></li>
+                            <li><i class="fa fa-table"></i><a href="{{Route('index-category')}}">Category Table</a></li>
+                           
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">

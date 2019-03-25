@@ -6,6 +6,8 @@
         <tr>
           <th>ID</th>
           <th>Name</th>
+          <th>Created-at</th>
+          <th>Update-at</th>
           <th>Edit</th>
           <th>Delete</th>
 
@@ -17,6 +19,8 @@
         <tr>
           <td>{{$item->id}}</td>
           <td>{{$item->name}}</td>
+          <td>{{$item->created_at}}</td>
+          <td>{{$item->updated_at}}</td>
           <td><a href="{{route('edit-role',$item->id)}} " class="btn btn-primary">Edit</a> </td> 
            <td> <form action="{{ route('delete-role',$item->id)}}" method="">
                 @csrf
@@ -26,5 +30,4 @@
         @endforeach
       </tbody>
     </table>
-   <a href="{{route('create-role',$item->id) }}"class="btn btn-primary">Create</a>
 @endsection
