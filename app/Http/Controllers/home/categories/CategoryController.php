@@ -17,11 +17,11 @@ class CategoryController extends Controller
     {
         $categories = Category::all();
         if (isset(request()->cate)) {
-            $product=Product::with('images')->where('category_id',request()->cate)->get()->toArray();
+            $products=Product::with('images')->where('category_id',request()->cate)->get()->toArray();
         }else{
-            $product=Product::with('images')->get()->toArray();
+            $products=Product::with('images')->take(12)->get()->toArray();
         }
-        return view('home.index', compact('categories','product'));
+        return view('home.index', compact('categories','products'));
     }
 
     /**

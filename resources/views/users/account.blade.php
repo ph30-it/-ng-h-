@@ -11,7 +11,7 @@
       <div class="aa-catg-head-banner-content">
         <h2>Account Page</h2>
         <ol class="breadcrumb">
-          <li><a href="index.html">Home</a></li>                   
+          <li><a href="{{ route('home') }}">Home</a></li>                   
           <li class="active">Account</li>
         </ol>
       </div>
@@ -25,37 +25,65 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          
-          <div class="alert alert-danger" style="margin-top: 20px; margin-bottom: -60px;">
-            
-            <p></p>
-            
-          </div>
+
           
           <div class="aa-myaccount-area">         
             <div class="row">
               <div class="col-md-6">
                 <div class="aa-myaccount-login">
                   <h4>Login</h4>
-                  <form action="" class="aa-login-form">
-                    <label for="">Email address<span>*</span></label>
-                    <input type="text" placeholder="Email" name="email">
-                    <label for="">Password<span>*</span></label>
-                    <input type="password" placeholder="Password" name="password">
-                    <button type="submit" class="aa-browse-btn">Login</button>
-                    <label class="rememberme" for="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
+                  <form method="POST" action="{{ route('login') }}" class="aa-login-form">
+                    @csrf
+                    <label for="email">Email address<span>*</span></label>
+                    <input type="text" placeholder="Email" name="email" id="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" required autofocus>
+                    @if ($errors->has('email'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('email') }}</strong>
+                        </span>
+                    @endif
+                    <label for="password">Password<span>*</span></label>
+                    <input type="password" placeholder="Password" name="password" id="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" required>
+                    @if ($errors->has('password'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('password') }}</strong>
+                        </span>
+                    @endif
+                    <button type="submit" class="aa-browse-btn">Login </button>
+                    <label class="rememberme" for="rememberme"><input type="checkbox" id="rememberme" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember me </label>
+                    @if (Route::has('password.request'))
                     <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
+                    @endif
                   </form>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="aa-myaccount-register">                 
                   <h4>Register</h4>
-                    <form action="" class="aa-login-form">
+                    <form method="POST" action="{{ route('register') }}" class="aa-login-form">
+                      @csrf
+                      <label for="name">Name<span>*</span></label>
+                      <input type="text" placeholder="Name" name="name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" required autofocus>
+                      @if ($errors->has('name'))
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $errors->first('name') }}</strong>
+                          </span>
+                      @endif
                       <label for="">Email address<span>*</span></label>
-                      <input type="text" placeholder="Email">
+                      <input type="text" placeholder="Email" name="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" required>
+                      @if ($errors->has('email'))
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $errors->first('email') }}</strong>
+                          </span>
+                      @endif
                       <label for="">Password<span>*</span></label>
-                      <input type="password" placeholder="Password">
+                      <input type="password" placeholder="Password" name="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" required="required">
+                      @if ($errors->has('password'))
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $errors->first('password') }}</strong>
+                          </span>
+                      @endif
+                      <label for="">Confirm Password<span>*</span></label>
+                      <input type="password" placeholder="Confirm Password" name="password_confirmation" required><br>
 
                       <button type="submit" class="aa-browse-btn">Register</button>                    
                     </form>

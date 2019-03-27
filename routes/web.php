@@ -25,9 +25,9 @@ route::group(['namespace' => 'home'], function(){
 	});
 
 	route::group(['namespace' => 'products'], function(){
-		
+		Route::get('/shop', 'ProductController@index')->name('shop');
 		Route::get('/{id}/product-detail', 'ProductController@show')->name('product-detail');
-		Route::get('/shop', 'ShopController@index')->name('shop');
+		
 	});
 
 	route::group(['namespace' => 'cart'], function(){
@@ -45,5 +45,5 @@ route::group(['namespace' => 'home'], function(){
 
 route::group(['namespace' => 'Auth'], function(){
 
-	Route::get('/account', 'AccountController@index')->name('account');
+	Route::get('/account', 'LoginController@index')->name('account');
 });

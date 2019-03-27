@@ -13,7 +13,7 @@
         <h2>{{ $product['name'] }}</h2>
         <ol class="breadcrumb">
           <li><a href="{{ route('home') }}">Home</a></li>         
-          <li><a href="#">Product</a></li>
+          <li><a href="{{ route('shop') }}">Product</a></li>
           <li class="active">{{ $product['name'] }}</li>
         </ol>
       </div>
@@ -57,25 +57,14 @@
                       <span class="aa-product-view-price">${{ $product['price'] }}</span>
                       <p class="aa-product-avilability">Avilability: <span>{{ $product['quantity'] }}</span></p>
                     </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis animi, veritatis quae repudiandae quod nulla porro quidem, itaque quis quaerat!</p>
-                    
-                    <div class="aa-prod-quantity">
-                      <form action="">
-                        <select id="" name="">
-                          <option selected="1" value="0">1</option>
-                          <option value="1">2</option>
-                          <option value="2">3</option>
-                          <option value="3">4</option>
-                          <option value="4">5</option>
-                          <option value="5">6</option>
-                        </select>
-                      </form>
-                      <p class="aa-prod-category">
-                        Category: <a href="#">Polo T-Shirt</a>
-                      </p>
+                    <p>{{ $product['description'] }}!</p>
+
+                    <p class="aa-prod-category">
+                      Category: <a href="#">{{ $category['0']['name'] }}</a>
+                    </p>
                     </div>
                     <div class="aa-prod-view-bottom">
-                      <a class="aa-add-to-cart-btn" href="#">Add To Cart</a>
+                      <a class="aa-add-to-cart-btn" href="{{ route('add-cart', $product['id']) }}">Add To Cart</a>
                       <a class="aa-add-to-cart-btn" href="#">Wishlist</a>
                     </div>
                   </div>

@@ -55,14 +55,14 @@
             <div class="aa-product-catg-body">
               <ul class="aa-product-catg">
                 <!-- start single product item -->
-                @foreach($product as $pro)
+                @foreach($products as $item)
                 <li>
                   <figure>
-                    <a class="aa-product-img" href="{{route('product-detail',$pro['id'])}}"><img src="{{$pro['images'][0]['path']}}" alt="polo shirt img"></a>
-                    <a class="aa-add-card-btn"href="{{ route('add-cart', $pro['id']) }}"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                    <a class="aa-product-img" href="{{route('product-detail',$item['id'])}}"><img src="{{$item['images'][0]['path']}}" alt="polo shirt img"></a>
+                    <a class="aa-add-card-btn"href="{{ route('add-cart', $item['id']) }}"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                     <figcaption>
-                      <h4 class="aa-product-title"><a href="{{route('product-detail',$pro['id'])}}">{{ $pro['name'] }}</a></h4>
-                      <span class="aa-product-price">{{ number_format($pro['price']).'₫' }}</span><span class="aa-product-price"><del>{{ number_format($pro['priceSale']).'₫' }}</del></span>
+                      <h4 class="aa-product-title"><a href="{{route('product-detail',$item['id'])}}">{{ $item['name'] }}</a></h4>
+                      <span class="aa-product-price">{{ number_format($item['priceSale']).'₫' }}</span><span class="aa-product-price"><del>{{ number_format($item['price']).'₫' }}</del></span>
                     </figcaption>
                   </figure>                        
                   <div class="aa-product-hvr-content">
@@ -71,13 +71,14 @@
                     <a href="" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                          
                   </div>
                   <!-- product badge -->
-                  @if($pro['status'] =='sale')
-                    <span class="aa-badge aa-sold-out" href="#">SALE!</span>  
-                  @elseif($pro['status'] =='new')
+                  @if($item['priceSale'] < $item['price'])
+                    <span class="aa-badge aa-sold-out" style="margin-top: 30px;" href="#">SALE!</span>
+                  @endif  
+                  @if($item['status'] =='new')
                     <span class="aa-badge aa-sale" href="#">NEW!</span>
-                  @elseif($pro['status'] =='hot')
+                  @elseif($item['status'] =='hot')
                     <span class="aa-badge aa-hot" href="#">HOT!</span>
-                      
+                  
                   @endif
                 </li>
                 @endforeach 

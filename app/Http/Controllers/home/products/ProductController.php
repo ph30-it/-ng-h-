@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\Image;
+use App\Category;
 
 class ProductController extends Controller
 {
@@ -14,11 +15,16 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index(Request $req)
+    {   
+        $categories = Category::all();
+        if (isset(request()->cate)) {
+            $products=Product::with('images')->where('category_id',request()->cate)->get()->toArray();
+        }else{
+            $products=Product::with('images')->get()->toArray();
+        }
+        return view('home.products.shop', compact('categories','products'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -27,6 +33,7 @@ class ProductController extends Controller
     public function create()
     {
         //
+        
     }
 
     /**
@@ -40,11 +47,6 @@ class ProductController extends Controller
         //
     }
 
-    public function quickview(Request $req)
-    {
-        
-    }
-
     /**
      * Display the specified resource.
      *
@@ -55,8 +57,9 @@ class ProductController extends Controller
     {
         //
         $product = Product::with('images')->find($id)->toArray();
+        $category = Category::Where('id', $id)->get()->toArray();
 
-        return view('home.products.product-detail', compact('product'));
+        return view('home.products.product-detail', compact('product', 'category'));
     }
 
     /**
