@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\home;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class LoginController extends Controller
+class WishlistController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,6 +15,7 @@ class LoginController extends Controller
     public function index()
     {
         //
+        return view('home.wishlist');
     }
 
     /**

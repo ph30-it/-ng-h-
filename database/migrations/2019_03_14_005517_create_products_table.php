@@ -20,7 +20,9 @@ class CreateProductsTable extends Migration
             $table->integer('priceSale');
             $table->integer('quantity');
             $table->string('description');
-            $table->integer('categories_id');
+            $table->string('long_description');
+            $table->string('status')->default('NULL');
+            $table->integer('category_id');
             $table->timestamps();
         });
     }
