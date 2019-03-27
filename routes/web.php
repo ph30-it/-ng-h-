@@ -67,6 +67,30 @@ Route::put('/role/{id}', 'RoleController@update')->name('update-role');
 
 
 });
+
+Route::group(['namespace'=>'comment'], function(){
+   
+Route::get('/comment','CommentControlller@index')->name('index-comment');
+Route::get('/comment/{id}','CommentControlller@destroy')->name('delete-comment');
+Route::get('/create-comment', 'CommentControlller@create')->name('create-comment');
+Route::post('/comment', 'CommentControlller@store')->name('addcomment');
+Route::get('/comment/{id}/edit', 'CommentControlller@edit')->name('edit-comment');
+Route::put('/comment/{id}', 'CommentControlller@update')->name('update-comment');
+
+});
+
+Route::group(['namespace'=>'order'],function(){
+
+
+Route::get('/order','OrderController@index')->name('index-order');
+Route::get('/order/{id}','OrderController@destroy')->name('delete-order');
+Route::get('/create-order', 'OrderController@create')->name('create-order');
+Route::post('/order', 'OrderController@store')->name('addorder');
+Route::get('/order/{id}/edit', 'OrderController@edit')->name('edit-order');
+Route::put('/order/{id}', 'OrderController@update')->name('update-order');
+
+
+});
 });
 
 

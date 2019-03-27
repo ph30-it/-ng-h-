@@ -3,7 +3,7 @@
 
 <div class="container">
 	
-	<form action="{{ route('addproduct')}}" method="POST">
+	<form action="{{ route('addproduct')}}" method="POST" enctype="multipart/form-data">
 	@csrf
 	  <div class="form-group">
 	    <label for="name">Name :</label>
@@ -24,6 +24,10 @@
 	  <div class="form-group">
 	    <label for="description">Description:</label>
 	    <input type="text" class="form-control" id="description" name="description">
+	  </div>
+	   <div class="form-group">
+	    <label for="path">Image:</label>
+	    <input type="file" class="form-control" id="path" name="path">
 	  </div>
 	  <label for="category_id">Category:</label>
 	    <select name="category_id" id="category_id">

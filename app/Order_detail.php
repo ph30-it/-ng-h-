@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Order-detail extends Model
+class order_detail extends Model
 {
     //
     protected $fillable = [

@@ -48,9 +48,10 @@ class ImageController extends Controller
                 $request->path->move(public_path('/images/'), $newName);
                 $data['path'] = $newName;
                 
-                Image::create($data);        
+                Image::create($data);  
+          
             }
-        return redirect()->route('index-image');
+        return redirect()->route('index-image')->with('status','thêm thành công');
     }
 
     /**
@@ -93,10 +94,9 @@ class ImageController extends Controller
                 $newName = '/images/'.md5(microtime(true)).$name_image;
                 $request->path->move(public_path('/images/'), $newName);
                 $data['path'] = $newName;
-                
-             $image->update($data);     
-            }
-        return redirect()->route('index-image');
+               $image->update($data);
+     }
+        return redirect()->route('index-image')->with('status','sửa thành công');
     }
 
     /**
@@ -114,8 +114,8 @@ class ImageController extends Controller
         $image->delete();
         //cach 2 
         // $products::destroy($id);
-        return redirect()->route('index-image');
+        return redirect()->route('index-image')->with('status','xóa thành công');
     }
-    return redirect()->route('index-image');
+    return redirect()->route('index-image')->with('status','xóa thất bại');
     }
 }

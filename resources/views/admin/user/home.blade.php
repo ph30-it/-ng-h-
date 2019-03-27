@@ -1,6 +1,9 @@
 @extends('admin.layout.master')
 @section('content') 
-<h3 style="text-align: center;">Welcom to Admin manager</h3> <br>    
+<h3 style="text-align: center;">Welcom to Admin manager</h3> <br> 
+@if(session('status'))
+   <div style=";color:black;width: 220px;margin-left: 400px;text-align: center;  ">{{session('status')}}</div><br>
+@endif   
     <table class="table table-hover" style="width: 900px">
       <thead>
         <tr>

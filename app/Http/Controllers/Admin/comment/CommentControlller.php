@@ -1,23 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Admin\user;  
-
-use Illuminate\Http\Request;
+namespace App\Http\Controllers\Admin\comment;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Comment;
+use App\Product;
 use App\User;
-use App\Role;
-
-class UserController extends Controller
+class CommentControlller extends Controller
 {
-    /**
+  /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $user=User::all();
-        return view('admin.user.home',compact('user'));
+        $comment=Comment::all();
+        return view('admin.comment.index',compact('comment'));
 
         }    
 
@@ -26,10 +25,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function create()
+      public function create()
     {
-         $role= Role::pluck('name', 'id');
-        return view('admin.user.create', compact('role'));
+         $products= Product::pluck('name', 'id');
+         $user=User::pluck('name','id');
+        return view('admin.comment.create', compact('products','user'));
     }
       /**
      * Store a newly created resource in storage.
@@ -41,10 +41,10 @@ class UserController extends Controller
     {
        try{
         $data= $request->all();
-        User::create($data);
-        return redirect()->route('index-user')->with('status','thêm thành công');
+        Comment::create($data);
+        return redirect()->route('index-comment')->with('status','thêm thành công');
           }catch(Exception $e){
-        return redirect()->route('index-user')->with('status','thêm thất bại');
+        return redirect()->route('index-comment')->with('status','thêm thất bại');
 
          }
     }
@@ -68,9 +68,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user= User::find($id);
-        $role= Role::pluck('name', 'id');
-        return view('admin.user.edit', compact('user', 'role'));
+        $comment= Comment::find($id);
+        $products= Product::pluck('name', 'id');
+        $user=User::pluck('name','id');
+        return view('admin.comment.edit', compact('comment', 'products','user'));
     }
 
     /**
@@ -83,32 +84,32 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         try{
-        $user = User::find($id);
+        $comment = Comment::find($id);
         $data= $request->all();
-        $user->update($data);
-        return redirect()->route('index-user')->with('status','sửa thành công');
+        $comment->update($data);
+        return redirect()->route('index-comment')->with('status','sửa thành công');
          }catch(Exception $e){
-        return redirect()->route('index-user')->with('status','sửa thất bại');
+        return redirect()->route('index-comment')->with('status','sửa thất bại');
     }
-    }
-
+}
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-         $user=User::find($id);
-        if ($user!=null) {
+    public function destroy($id){
+
+
+        $comment=Comment::find($id);
+        if ($comment!=null) {
             # code...
       
-        $user->delete();
+        $comment->delete();
         //cach 2 
         // $products::destroy($id);
-        return redirect()->route('index-user')->with('status','xóa thành công');
+        return redirect()->route('index-comment')->with('status','xóa thành công');
     }
-    return redirect()->route('index-user')->with('status','xóa thất bại');
+    return redirect()->route('index-comment')->with('status','xóa thất bại');
     }
 }
