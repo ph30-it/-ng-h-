@@ -16,7 +16,7 @@ class Product extends Model
     }
 
     public function order_details(){
-    	return $this->hasMany('App\Order-detail');
+    	return $this->hasMany('App\Order_detail');
     }
 
     public function images(){
