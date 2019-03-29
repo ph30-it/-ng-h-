@@ -19,11 +19,13 @@ class ProductController extends Controller
     {   
         $categories = Category::all();
         if (isset(request()->cate)) {
-            $products=Product::with('images')->where('category_id',request()->cate)->get()->toArray();
+            $products=Product::with('images')->where('category_id',request()->cate)->paginate(4);
         }else{
-            $products=Product::with('images')->get()->toArray();
+            $products=Product::with('images')->paginate(4);
         }
-        return view('home.products.shop', compact('categories','products'));
+        $newproduct = Product::with('images')->orderBy('id','DESC')->LIMIT(8)->get()->toArray();
+        $saleproduct = Product::with('images')->where('priceSale','!=',0)->get()->toArray(); 
+        return view('home.products.shop', compact('categories','products','newproduct','saleproduct'));
     }
     /**
      * Show the form for creating a new resource.
@@ -57,9 +59,9 @@ class ProductController extends Controller
     {
         //
         $product = Product::with('images')->find($id)->toArray();
-        $category = Category::Where('id', $id)->get()->toArray();
-
-        return view('home.products.product-detail', compact('product', 'category'));
+        $category = Category::with('products')->Where('id', $product['category_id'])->get()->toArray();
+        $relatedproduct = Product::with('images')->where('category_id',$category[0]['id'])->get()->toArray();
+        return view('home.products.product-detail', compact('product', 'category','relatedproduct'));
     }
 
     /**

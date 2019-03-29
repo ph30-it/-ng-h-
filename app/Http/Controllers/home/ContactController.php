@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\home;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\MailRequest;
 use App\Http\Controllers\Controller;
-
+use Mail;
 class ContactController extends Controller
 {
     /**
@@ -17,26 +18,28 @@ class ContactController extends Controller
         //
         return view('home.contact');
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+     
+    public function senmai(MailRequest $request)
     {
         //
-    }
+        ini_set('max_execution_time', 300);
+       $data = [
+         'name'   => $request->name,
+         'email'  => $request->email,
+         'content'=> $request->content,
+       ];
+       
+       Mail::send('email.sendToUser',$data,function($msg) use ($data){
+         $msg->from('quanqb.it@gmail.com',"QV_Watch");
+         $msg->to($data['email'])->subject('Cảm ơn bạn đã liên hệ với shop! tin nhắn sẽ được hồi âm trong vòng 24h');
+       });
+       
+       Mail::send('email.sendToAdmin',$data,function($msg){
+         $msg->from('quanqb.it@gmail.com',"QV_Watch");
+         $msg->to('quanqb.it@gmail.com')->subject('khách hàng');
+       });
+       return redirect()->route('contact')->with(['flash_level'=>'result_msg','flash_massage'=>'Cảm ơn bạn đã liên hệ với chúng tôi!']);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**

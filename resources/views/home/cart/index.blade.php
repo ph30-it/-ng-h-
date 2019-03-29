@@ -78,7 +78,7 @@
                    </tr>
                  </tbody>
                </table>
-               <a href="#" class="aa-cart-view-btn">Proced to Checkout</a>
+               <a href="{{ route('checkout') }}" class="aa-cart-view-btn">Proced to Checkout</a>
              </div>
            </div>
          </div>

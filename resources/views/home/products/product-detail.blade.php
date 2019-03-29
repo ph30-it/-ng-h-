@@ -33,18 +33,24 @@
                   <div class="aa-product-view-slider">                                
                     <div id="demo-1" class="simpleLens-gallery-container">
                       <div class="simpleLens-container">
-                        <div class="simpleLens-big-image-container"><a data-lens-image="{{ asset($product['images'][0]['path']) }}" class="simpleLens-lens-image"><img src="{{ asset($product['images'][0]['path']) }}" class="simpleLens-big-image"></a></div>
+                        <div class="simpleLens-big-image-container"><a data-lens-image="{{ asset($product['images'][0]['path']) }}" class="simpleLens-lens-image"><img src="{{ asset($product['images'][0]['path']) }}" width="250" height="300" class="simpleLens-big-image"></a></div>
                       </div>
                       <div class="simpleLens-thumbnails-container">
-                          <a data-big-image="{{ $product['images'][0]['path'] }}" data-lens-image="{{ $product['images'][0]['path'] }}" class="simpleLens-thumbnail-wrapper" href="#">
-                            <img src="{{ $product['images'][0]['path'] }}">
-                          </a>                                    
-                          <a data-big-image="{{ $product['images'][0]['path'] }}" data-lens-image="{{ $product['images'][0]['path'] }}" class="simpleLens-thumbnail-wrapper" href="#">
-                            <img src="{{ $product['images'][0]['path'] }}">
-                          </a>
-                          <a data-big-image="{{ $product['images'][0]['path'] }}" data-lens-image="{{ $product['images'][0]['path'] }}" class="simpleLens-thumbnail-wrapper" href="#">
-                            <img src="{{ $product['images'][0]['path'] }}">
-                          </a>
+                          @if(isset($product['images'][1]['path']))
+                            <a data-big-image="{{ asset($product['images'][1]['path']) }}" data-lens-image="{{ asset($product['images'][1]['path']) }}" class="simpleLens-thumbnail-wrapper" href="#">
+                              <img src="{{ asset($product['images'][1]['path']) }}" width="45" height="55">
+                            </a>
+                          @endif
+                          @if(isset($product['images'][2]['path']))                                    
+                            <a data-big-image="{{ asset($product['images'][2]['path']) }}" data-lens-image="{{ asset($product['images'][2]['path']) }}" class="simpleLens-thumbnail-wrapper" href="#">
+                              <img src="{{ asset($product['images'][2]['path']) }}" width="45" height="55">
+                            </a>
+                          @endif
+                          @if(isset($product['images'][3]['path']))
+                            <a data-big-image="{{ asset($product['images'][3]['path']) }}" data-lens-image="{{ asset($product['images'][3]['path']) }}" class="simpleLens-thumbnail-wrapper" href="#">
+                              <img src="{{ asset($product['images'][3]['path']) }}" width="45" height="55">
+                            </a>
+                          @endif
                       </div>
                     </div>
                   </div>
@@ -171,23 +177,24 @@
               <h3>Related Products</h3>
               <ul class="aa-product-catg aa-related-item-slider">
                 <!-- start single product item -->
+                @foreach($relatedproduct as $item)
                 <li>
                   <figure>
-                    <a class="aa-product-img" href="#"><img src="img/man/polo-shirt-2.png" alt="polo shirt img"></a>
-                    <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                    <a class="aa-product-img" href="{{route('product-detail',$item['id'])}}"><img src="{{asset($item['images'][0]['path'])}}" alt="polo shirt img"></a>
+                    <a class="aa-add-card-btn"href="{{ route('add-cart', $item['id']) }}"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                      <figcaption>
-                      <h4 class="aa-product-title"><a href="#">Polo T-Shirt</a></h4>
-                      <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
+                      <h4 class="aa-product-title"><a href="#">{{ $item['name'] }}</a></h4>
+                      <span class="aa-product-price">{{ number_format($item['price']-($item['price']*$item['priceSale']/100)).'₫' }}</span><span class="aa-product-price"><del>{{ number_format($item['price']).'₫' }}</del></span>
                     </figcaption>
                   </figure>                     
                   <div class="aa-product-hvr-content">
                     <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                    <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                     <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
                   </div>
                   <!-- product badge -->
                   <span class="aa-badge aa-sale" href="#">SALE!</span>
                 </li>
+                @endforeach
                  <!-- start single product item -->
                                                                                                    
               </ul>

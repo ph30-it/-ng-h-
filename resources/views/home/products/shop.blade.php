@@ -62,7 +62,7 @@
                     <a class="aa-add-card-btn"href="{{ route('add-cart', $item['id']) }}"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                     <figcaption>
                       <h4 class="aa-product-title"><a href="{{route('product-detail',$item['id'])}}">{{ $item['name'] }}</a></h4>
-                      <span class="aa-product-price">{{ number_format($item['priceSale']).'₫' }}</span><span class="aa-product-price"><del>{{ number_format($item['price']).'₫' }}</del></span>
+                      <span class="aa-product-price">{{ number_format($item['price']-($item['price']*$item['priceSale']/100)).'₫' }}</span><span class="aa-product-price"><del>{{ number_format($item['price']).'₫' }}</del></span>
                     </figcaption>
                   </figure>                        
                   <div class="aa-product-hvr-content">
@@ -71,15 +71,16 @@
                     <a href="" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                          
                   </div>
                   <!-- product badge -->
-                  @if($item['priceSale'] < $item['price'])
-                    <span class="aa-badge aa-sold-out" style="margin-top: 30px;" href="#">SALE!</span>
-                  @endif  
-                  @if($item['status'] =='new')
-                    <span class="aa-badge aa-sale" href="#">NEW!</span>
-                  @elseif($item['status'] =='hot')
-                    <span class="aa-badge aa-hot" href="#">HOT!</span>
-                  
-                  @endif
+                  @if($item['priceSale'] != 0)
+                        <span class="aa-badge aa-sold-out" style="margin-top: 30px;" href="#">SALE!</span>
+                      @endif
+                      @foreach($newproduct as $new) 
+                      @if($new['id']==$item['id'])
+                        <span class="aa-badge aa-sale" style="margin-top: -10px;" href="#">NEW!</span>
+                      @endif
+                      @endforeach
+                      
+                        <!-- <span class="aa-badge aa-hot" href="#">HOT!</span> -->
                 </li>
                 @endforeach 
                                                  
@@ -168,24 +169,8 @@
               <!-- / quick view modal -->   
             </div>
             <div class="aa-product-catg-pagination">
-              <nav>
-                <ul class="pagination">
-                  <li>
-                    <a href="#" aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">4</a></li>
-                  <li><a href="#">5</a></li>
-                  <li>
-                    <a href="#" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
+              <nav style="margin-right: 400px;">
+                {!! $products->links() !!}
               </nav>
             </div>
           </div>

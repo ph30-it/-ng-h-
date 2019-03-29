@@ -4,7 +4,7 @@
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
+|	
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
@@ -12,7 +12,7 @@
 */
 
 Auth::routes();
-Route::group(['namespace'=>'Admin'],function(){
+Route::group(['namespace'=>'Admin','middleware' => 'CheckRole'],function(){
 
 
 	Route::group(['namespace'=>'product'],function(){
@@ -97,6 +97,7 @@ route::group(['namespace' => 'home'], function(){
 	Route::get('/', 'HomeController@index')->name('home');
 	Route::get('/wishlist', 'WishlistController@index')->name('wishlist');
 	Route::get('/contact', 'ContactController@index')->name('contact');
+	Route::post('/send-email', 'ContactController@senmai')->name('send-email');
 	
 	route::group(['namespace' => 'categories'], function(){
 		Route::get('/', 'CategoryController@index')->name('home');
@@ -118,6 +119,7 @@ route::group(['namespace' => 'home'], function(){
 		Route::get('/cart/{id}/reduce-products','CartController@reduction')->name('reduce-products');
 
 		Route::get('/checkout', 'OrderController@index')->name('checkout');
+		Route::post('payment','OrderController@postpayment')->name('postpayment');
 	});
 		
 });
@@ -125,4 +127,6 @@ route::group(['namespace' => 'Auth'], function(){
 
 	Route::get('/account', 'LoginController@index')->name('account');
 });
+
+
 

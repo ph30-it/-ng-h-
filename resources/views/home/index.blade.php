@@ -33,7 +33,7 @@
 			                    				<a class="aa-add-card-btn"href="{{ route('add-cart', $item['id']) }}"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
 			                    				<figcaption>
 			                    					<h4 class="aa-product-title"><a href="{{route('product-detail',$item['id'])}}">{{ $item['name'] }}</a></h4>
-			                    					<span class="aa-product-price">{{ number_format($item['priceSale']).'₫' }}</span><span class="aa-product-price"><del>{{ number_format($item['price']).'₫' }}</del></span>
+			                    					<span class="aa-product-price">{{ number_format($item['price']-($item['price']*$item['priceSale']/100)).'₫' }}</span><span class="aa-product-price"><del>{{ number_format($item['price']).'₫' }}</del></span>
 			                    				</figcaption>
 			                    			</figure>                        
 			                    			<div class="aa-product-hvr-content">
@@ -42,16 +42,17 @@
 			                    				<a href="" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                          
 			                    			</div>
 			                    			<!-- product badge -->
-			                    			@if($item['priceSale'] < $item['price'])
+			                    			@if($item['priceSale'] != 0)
 												<span class="aa-badge aa-sold-out" style="margin-top: 30px;" href="#">SALE!</span>
-											@endif	
-											@if($item['status'] =='new')
-												<span class="aa-badge aa-sale" href="#">NEW!</span>
-											@elseif($item['status'] =='hot')
-												<span class="aa-badge aa-hot" href="#">HOT!</span>
-											@else
-											
 											@endif
+											@foreach($newproduct as $new)	
+											@if($new['id']==$item['id'])
+												<span class="aa-badge aa-sale" style="margin-top: -10px;" href="#">NEW!</span>
+											@endif
+											@endforeach
+											
+												<!-- <span class="aa-badge aa-hot" href="#">HOT!</span> -->
+											
 			                    		</li>
 			                    		@endforeach 
 			                    	</ul>
@@ -168,15 +169,14 @@
 	              	<div class="tab-content">
 		                <div class="tab-pane fade in active" id="new">
 		                  	<ul class="aa-product-catg aa-popular-slider">
-								@if($item['status'] == 'new')
-		                  		@foreach($products as $item)
+		                  		@foreach($newproduct as $item)
 	                    		<li>
 	                    			<figure>
 	                    				<a class="aa-product-img" href="{{route('product-detail',$item['id'])}}"><img src="{{$item['images'][0]['path']}}" alt="polo shirt img"></a>
 	                    				<a class="aa-add-card-btn"href="{{ route('add-cart', $item['id']) }}"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
 	                    				<figcaption>
 	                    					<h4 class="aa-product-title"><a href="{{route('product-detail',$item['id'])}}">{{ $item['name'] }}</a></h4>
-	                    					<span class="aa-product-price">{{ number_format($item['price']).'₫' }}</span><span class="aa-product-price"><del>{{ number_format($item['priceSale']).'₫' }}</del></span>
+	                    					<span class="aa-product-price">{{ number_format($item['price']-($item['price']*$item['priceSale']/100)).'₫' }}</span><span class="aa-product-price"><del>{{ number_format($item['price']).'₫' }}</del></span>
 	                    				</figcaption>
 	                    			</figure>                        
 	                    			<div class="aa-product-hvr-content">
@@ -188,12 +188,11 @@
 										<span class="aa-badge aa-sale" href="#">NEW!</span>
 	                    		</li>
 	                    		@endforeach
-		                    	@endif
 		                  	</ul>
-		                  	<a class="aa-browse-btn" href="#">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
+		                  	<a class="aa-browse-btn" href="{{ route('shop') }}">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
 		                </div>
 		                <!-- / popular product category -->
-		                
+		                	
 		                <!-- start featured product category -->
 		                <div class="tab-pane fade" id="hot">
 		                 	<ul class="aa-product-catg aa-featured-slider">
@@ -201,7 +200,7 @@
 			                    
 			                      
 		                  	</ul>
-		                  	<a class="aa-browse-btn" href="#">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
+		                  	<a class="aa-browse-btn" href="{{ route('shop') }}">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
 		                </div>
 		                <!-- / featured product category -->
 
@@ -209,10 +208,28 @@
 		                <div class="tab-pane fade" id="sale">
 		                  	<ul class="aa-product-catg aa-latest-slider">
 		                    <!-- start single product item -->
-			                    
+			                    @foreach($saleproduct as $item)
+	                    		<li>
+	                    			<figure>
+	                    				<a class="aa-product-img" href="{{route('product-detail',$item['id'])}}"><img src="{{$item['images'][0]['path']}}" alt="polo shirt img"></a>
+	                    				<a class="aa-add-card-btn"href="{{ route('add-cart', $item['id']) }}"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+	                    				<figcaption>
+	                    					<h4 class="aa-product-title"><a href="{{route('product-detail',$item['id'])}}">{{ $item['name'] }}</a></h4>
+	                    					<span class="aa-product-price">{{ number_format($item['price']-($item['price']*$item['priceSale']/100)).'₫' }}</span><span class="aa-product-price"><del>{{ number_format($item['price']).'₫' }}</del></span>
+	                    				</figcaption>
+	                    			</figure>                        
+	                    			<div class="aa-product-hvr-content">
+	                    				<a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+	                    				
+	                    				<a href="" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                          
+	                    			</div>
+	                    			<!-- product badge -->
+										<span class="aa-badge aa-sold-out" href="#">SALE!</span>
+	                    		</li>
+	                    		@endforeach
 			                    
 		                  	</ul>
-		                   	<a class="aa-browse-btn" href="#">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
+		                   	<a class="aa-browse-btn" href="{{ route('shop') }}">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
 		                </div>            
 	              	</div>
 	          	</div> 

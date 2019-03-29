@@ -65,10 +65,9 @@ class AdminController extends Controller
       
        if ($request->hasFile('path')) {
                $name_image = $request->path->getClientOriginalName();
-                $newName = '/images/'.md5(microtime(true)).$name_image;
-                $request->path->move(public_path('/images/'), $newName);
+                $newName = '/images/product/'.md5(microtime(true)).$name_image;
+                $request->path->move(public_path('/images/product/'), $newName);
                 $data['path'] = $newName;
-                
                 Image::create([
                      'path'=>$newName,
                      'product_id'=>$product->id,

@@ -15,10 +15,12 @@ class CreateOrderTable extends Migration
     {
         Schema::create('order', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('receiver');
             $table->datetime('timeOrder');
             $table->string('address');
-            $table->string('status');
+            $table->string('status')->default('0');
             $table->integer('phone');
+            $table->string('note')->default('null');
             $table->integer('user_id');
             $table->timestamps();
         });
@@ -31,6 +33,6 @@ class CreateOrderTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order');
+        Schema::dropIfExists('orders');
     }
 }
