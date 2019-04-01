@@ -8,7 +8,8 @@ class Order extends Model
 {
     //
     protected $fillable = [
-        'time_Order', 'address', 'status','user_id','total'
+
+        'name','time_Order', 'address','phone', 'status','user_id','note','total'
     ];
 
     public function user(){
@@ -17,7 +18,7 @@ class Order extends Model
 
     public function order_details()
     {
-        return $this->hasMany('App\Order_details');
+        return $this->hasMany('App\Order_detail');
 
 }
 }

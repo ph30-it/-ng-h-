@@ -19,7 +19,7 @@ class CartController extends Controller
             'id'=>$id, 
             'name'=>$product_buy->name, 
             'quantity'=>1, 
-            'price'=>$product_buy->priceSale, 
+            'price'=>($product_buy->price)-(($product_buy->price)*($product_buy->priceSale)/100), 
             'attributes'=> array('image' =>$product_buy->images['0']['path'])
         ));
 

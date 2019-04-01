@@ -4,14 +4,14 @@
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
+|	
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
 */
 
-Auth::routes();
+
 Route::group(['namespace'=>'Admin'],function(){
 Route::get('/admin', function () {
     return view('admin.home');
@@ -103,11 +103,17 @@ Route::put('/admin/order/{id}', 'OrderController@update')->name('update-order');
 });
 
 
+route::get('/quick',function(){
+	return view('home.products.quick-view');
+});
+
 route::group(['namespace' => 'home'], function(){
 
 	Route::get('/', 'HomeController@index')->name('home');
+	Route::get('/search','HomeController@search')->name('search');
 	Route::get('/wishlist', 'WishlistController@index')->name('wishlist');
 	Route::get('/contact', 'ContactController@index')->name('contact');
+	Route::post('/send-email', 'ContactController@senmai')->name('send-email');
 	
 	route::group(['namespace' => 'categories'], function(){
 		Route::get('/', 'CategoryController@index')->name('home');
@@ -117,6 +123,7 @@ route::group(['namespace' => 'home'], function(){
 	route::group(['namespace' => 'products'], function(){
 		Route::get('/shop', 'ProductController@index')->name('shop');
 		Route::get('/{id}/product-detail', 'ProductController@show')->name('product-detail');
+		Route::post('/comment','ProductController@comment')->name('comment');
 		
 	});
 
@@ -129,6 +136,7 @@ route::group(['namespace' => 'home'], function(){
 		Route::get('/cart/{id}/reduce-products','CartController@reduction')->name('reduce-products');
 
 		Route::get('/checkout', 'OrderController@index')->name('checkout');
+		Route::post('payment','OrderController@postpayment')->name('postpayment');
 	});
 		
 });
@@ -136,4 +144,6 @@ route::group(['namespace' => 'Auth'], function(){
 
 	Route::get('/account', 'LoginController@index')->name('account');
 });
+
+
 

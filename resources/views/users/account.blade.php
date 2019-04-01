@@ -25,10 +25,25 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-
-          
           <div class="aa-myaccount-area">         
             <div class="row">
+              @if ( Session::has('error') )
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                  <strong>{{ Session::get('error') }}</strong>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                  </button>
+                </div>
+              @elseif (Session::has('status'))
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                  <strong>{{ Session::get('status') }}</strong>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                  </button>
+                </div>
+              @endif
               <div class="col-md-6">
                 <div class="aa-myaccount-login">
                   <h4>Login</h4>
@@ -39,7 +54,7 @@
                     @if ($errors->has('email'))
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $errors->first('email') }}</strong>
-                        </span>
+                        </span><br>
                     @endif
                     <label for="password">Password<span>*</span></label>
                     <input type="password" placeholder="Password" name="password" id="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" required>

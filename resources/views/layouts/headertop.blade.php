@@ -20,13 +20,13 @@
                     <div class="aa-language">
                       <div class="dropdown">
                         @if(Auth::check())
-                        <a class="btn dropdown-toggle" href="{{ route('account') }}" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <a class="btn dropdown-toggle" href="{{ route('account') }}" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="font-size: 120%; color: red;">
                           {{Auth::user()->name}}
                           <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                          <li><a href="#">Your Profile</a></li>
-                          <li><a href="{{ route('logout') }}" 
+                          <li><a href="#" style="font-size: 100%; color: green;">My Profile</a></li>
+                          <li><a href="{{ route('logout') }}" style="font-size: 100%; color: green;" 
                             onclick="event.preventDefault();
                               document.getElementById('logout-form').submit();">
                               Logout</a>

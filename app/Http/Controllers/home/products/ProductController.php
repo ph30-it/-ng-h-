@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Product;
 use App\Image;
 use App\Category;
+use App\Comment;
+use Auth;
+use App\User;
 
 class ProductController extends Controller
 {
@@ -19,11 +22,13 @@ class ProductController extends Controller
     {   
         $categories = Category::all();
         if (isset(request()->cate)) {
-            $products=Product::with('images')->where('category_id',request()->cate)->get()->toArray();
+            $products=Product::with('images')->where('category_id',request()->cate)->paginate(4);
         }else{
-            $products=Product::with('images')->get()->toArray();
+            $products=Product::with('images')->paginate(4);
         }
-        return view('home.products.shop', compact('categories','products'));
+        $newproduct = Product::with('images')->orderBy('id','DESC')->LIMIT(8)->get()->toArray();
+        $saleproduct = Product::with('images')->where('priceSale','!=',0)->get()->toArray(); 
+        return view('home.products.shop', compact('categories','products','newproduct','saleproduct'));
     }
     /**
      * Show the form for creating a new resource.
@@ -53,13 +58,43 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //product-details
     public function show($id)
     {
         //
         $product = Product::with('images')->find($id)->toArray();
-        $category = Category::Where('id', $id)->get()->toArray();
+        $category = Category::with('products')->Where('id', $product['category_id'])->get()->toArray();
+        $relatedproduct = Product::with('images')->where('category_id',$category[0]['id'])->get()->toArray();
+        $comments = Comment::where('product_id',$id)->get();
+        //dd($comments);
+        return view('home.products.product-detail', compact('product', 'category','relatedproduct','comments'));
+    }
 
-        return view('home.products.product-detail', compact('product', 'category'));
+    public function comment(Request $request)
+    {
+        $comment = $request->all();
+        $rating = new \willvincent\Rateable\Rating;
+        $rating->rating = $request->rate;
+        if(Auth::check()){
+            $data = Comment::create([
+                'name'=> $comment['name'],
+                'email'=> $comment['email'],
+                'content'=> $comment['content'],
+                'rate'=>$rating->rating = $request->rate,
+                'product_id'=> $comment['product_id'],
+                'user_id'=> Auth::user()->id,
+            ]);
+        }else{
+            $data = Comment::create([
+                'name'=> $comment['name'],
+                'email'=> $comment['email'],
+                'content'=> $comment['content'],
+                'rate'=>$rating->rating = $request->rate,
+                'product_id'=> $comment['product_id'],
+            ]);
+        }
+       
+       return redirect()->back();
     }
 
     /**

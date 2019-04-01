@@ -33,18 +33,24 @@
                   <div class="aa-product-view-slider">                                
                     <div id="demo-1" class="simpleLens-gallery-container">
                       <div class="simpleLens-container">
-                        <div class="simpleLens-big-image-container"><a data-lens-image="{{ asset($product['images'][0]['path']) }}" class="simpleLens-lens-image"><img src="{{ asset($product['images'][0]['path']) }}" class="simpleLens-big-image"></a></div>
+                        <div class="simpleLens-big-image-container"><a data-lens-image="{{ asset($product['images'][0]['path']) }}" class="simpleLens-lens-image"><img src="{{ asset($product['images'][0]['path']) }}" width="250" height="300" class="simpleLens-big-image"></a></div>
                       </div>
                       <div class="simpleLens-thumbnails-container">
-                          <a data-big-image="{{ $product['images'][0]['path'] }}" data-lens-image="{{ $product['images'][0]['path'] }}" class="simpleLens-thumbnail-wrapper" href="#">
-                            <img src="{{ $product['images'][0]['path'] }}">
-                          </a>                                    
-                          <a data-big-image="{{ $product['images'][0]['path'] }}" data-lens-image="{{ $product['images'][0]['path'] }}" class="simpleLens-thumbnail-wrapper" href="#">
-                            <img src="{{ $product['images'][0]['path'] }}">
-                          </a>
-                          <a data-big-image="{{ $product['images'][0]['path'] }}" data-lens-image="{{ $product['images'][0]['path'] }}" class="simpleLens-thumbnail-wrapper" href="#">
-                            <img src="{{ $product['images'][0]['path'] }}">
-                          </a>
+                          @if(isset($product['images'][1]['path']))
+                            <a data-big-image="{{ asset($product['images'][1]['path']) }}" data-lens-image="{{ asset($product['images'][1]['path']) }}" class="simpleLens-thumbnail-wrapper" href="#">
+                              <img src="{{ asset($product['images'][1]['path']) }}" width="45" height="55">
+                            </a>
+                          @endif
+                          @if(isset($product['images'][2]['path']))                                    
+                            <a data-big-image="{{ asset($product['images'][2]['path']) }}" data-lens-image="{{ asset($product['images'][2]['path']) }}" class="simpleLens-thumbnail-wrapper" href="#">
+                              <img src="{{ asset($product['images'][2]['path']) }}" width="45" height="55">
+                            </a>
+                          @endif
+                          @if(isset($product['images'][3]['path']))
+                            <a data-big-image="{{ asset($product['images'][3]['path']) }}" data-lens-image="{{ asset($product['images'][3]['path']) }}" class="simpleLens-thumbnail-wrapper" href="#">
+                              <img src="{{ asset($product['images'][3]['path']) }}" width="45" height="55">
+                            </a>
+                          @endif
                       </div>
                     </div>
                   </div>
@@ -80,21 +86,13 @@
               <!-- Tab panes -->
               <div class="tab-content">
                 <div class="tab-pane fade in active" id="description">
-                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                  <ul>
-                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, culpa!</li>
-                    <li>Lorem ipsum dolor sit amet.</li>
-                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</li>
-                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor qui eius esse!</li>
-                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam, modi!</li>
-                  </ul>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum, iusto earum voluptates autem esse molestiae ipsam, atque quam amet similique ducimus aliquid voluptate perferendis, distinctio!</p>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis ea, voluptas! Aliquam facere quas cumque rerum dolore impedit, dicta ducimus repellat dignissimos, fugiat, minima quaerat necessitatibus? Optio adipisci ab, obcaecati, porro unde accusantium facilis repudiandae.</p>
+                  <p>{{ $product['long_description'] }}.</p>
                 </div>
                 <div class="tab-pane fade " id="review">
                  <div class="aa-product-review-area">
-                   <h4>2 Reviews for {{ $product['name'] }}</h4> 
+                   <h4>{{ $comments->count('product_id') }} Reviews for <b>( {{ $product['name'] }} )</b></h4> 
                    <ul class="aa-review-nav">
+                    @foreach($comments as $comment)
                      <li>
                         <div class="media">
                           <div class="media-left">
@@ -103,64 +101,49 @@
                             </a>
                           </div>
                           <div class="media-body">
-                            <h4 class="media-heading"><strong>Marla Jobs</strong> - <span>March 26, 2016</span></h4>
-                            <div class="aa-product-rating">
-                              <span class="fa fa-star"></span>
-                              <span class="fa fa-star"></span>
-                              <span class="fa fa-star"></span>
-                              <span class="fa fa-star"></span>
-                              <span class="fa fa-star-o"></span>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                            <h4 class="media-heading"><strong>{{ $comment->name }} - {{ $comment->email }}</strong> - <span>({{ $comment->created_at }})</span></h4>
+                            <input id="input-1" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-show-caption="false" data-step="0.1" value="{{ $comment->rate }}" data-size="s" disabled="">
+                            <p>{{ $comment->content }}</p>
                           </div>
                         </div>
                       </li>
-                      <li>
-                        <div class="media">
-                          <div class="media-left">
-                            <a href="#">
-                              <img class="media-object" src="img/testimonial-img-3.jpg" alt="girl image">
-                            </a>
-                          </div>
-                          <div class="media-body">
-                            <h4 class="media-heading"><strong>Marla Jobs</strong> - <span>March 26, 2016</span></h4>
-                            <div class="aa-product-rating">
-                              <span class="fa fa-star"></span>
-                              <span class="fa fa-star"></span>
-                              <span class="fa fa-star"></span>
-                              <span class="fa fa-star"></span>
-                              <span class="fa fa-star-o"></span>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                          </div>
-                        </div>
-                      </li>
+                      @endforeach
                    </ul>
                    <h4>Add a review</h4>
-                   <div class="aa-your-rating">
-                     <p>Your Rating</p>
-                     <a href="#"><span class="fa fa-star-o"></span></a>
-                     <a href="#"><span class="fa fa-star-o"></span></a>
-                     <a href="#"><span class="fa fa-star-o"></span></a>
-                     <a href="#"><span class="fa fa-star-o"></span></a>
-                     <a href="#"><span class="fa fa-star-o"></span></a>
-                   </div>
                    <!-- review form -->
-                   <form action="" class="aa-review-form">
+                   <form method="POST" action="{{route('comment')}}" class="aa-review-form">
+                    @csrf
+
+                      <div class="rating">
+                        <input id="input-1" name="rate" class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="" data-size="xs">
+                      </div>
+                      <input type="hidden" name="product_id" value="{{$product['id']}}">
                       <div class="form-group">
                         <label for="message">Your Review</label>
-                        <textarea class="form-control" rows="3" id="message"></textarea>
+                        <textarea class="form-control" rows="3" id="message" name="content"></textarea>
                       </div>
+                      @if( Auth::check())
                       <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" placeholder="Name">
+                        <input type="text" class="form-control" id="name" placeholder="Name" name="name" value="{{ Auth::user()->name }}">
                       </div>  
                       <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="example@gmail.com">
+                        <input type="email" class="form-control" id="email" placeholder="example@gmail.com" name="email" value="{{ Auth::user()->email }}">
                       </div>
+                      @else
+                      <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Name" name="name" >
+                      </div>  
+                      <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="example@gmail.com" name="email" >
+                      </div>
+                      @endif
 
                       <button type="submit" class="btn btn-default aa-review-submit">Submit</button>
+                    
                    </form>
                  </div>
                 </div>            
@@ -171,23 +154,24 @@
               <h3>Related Products</h3>
               <ul class="aa-product-catg aa-related-item-slider">
                 <!-- start single product item -->
+                @foreach($relatedproduct as $item)
                 <li>
                   <figure>
-                    <a class="aa-product-img" href="#"><img src="img/man/polo-shirt-2.png" alt="polo shirt img"></a>
-                    <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                    <a class="aa-product-img" href="{{route('product-detail',$item['id'])}}"><img src="{{asset($item['images'][0]['path'])}}" alt="polo shirt img"></a>
+                    <a class="aa-add-card-btn"href="{{ route('add-cart', $item['id']) }}"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                      <figcaption>
-                      <h4 class="aa-product-title"><a href="#">Polo T-Shirt</a></h4>
-                      <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
+                      <h4 class="aa-product-title"><a href="#">{{ $item['name'] }}</a></h4>
+                      <span class="aa-product-price">{{ number_format($item['price']-($item['price']*$item['priceSale']/100)).'₫' }}</span><span class="aa-product-price"><del>{{ number_format($item['price']).'₫' }}</del></span>
                     </figcaption>
                   </figure>                     
                   <div class="aa-product-hvr-content">
                     <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                    <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                     <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
                   </div>
                   <!-- product badge -->
                   <span class="aa-badge aa-sale" href="#">SALE!</span>
                 </li>
+                @endforeach
                  <!-- start single product item -->
                                                                                                    
               </ul>
@@ -278,6 +262,7 @@
         </div>
       </div>
     </div>
+    
   </section>
 
 @stop

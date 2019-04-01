@@ -21,7 +21,10 @@ class CategoryController extends Controller
         }else{
             $products=Product::with('images')->take(12)->get()->toArray();
         }
-        return view('home.index', compact('categories','products'));
+        $newproduct = Product::with('images')->orderBy('id','DESC')->LIMIT(8)->get()->toArray();
+        $saleproduct = Product::with('images')->where('priceSale','!=',0)->get()->toArray(); 
+        //dd($saleproduct);
+        return view('home.index', compact('categories','products','newproduct','saleproduct'));
     }
 
     /**
