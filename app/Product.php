@@ -8,7 +8,7 @@ class Product extends Model
 {
     //
     protected $fillable = [
-        'name', 'price', 'priceSale','quantity','description','category_id'
+        'name', 'price', 'priceSale','quantity','description','long_description','category_id'
     ];
 
     public function comments(){
@@ -23,7 +23,7 @@ class Product extends Model
     	return $this->hasMany('App\Image');
     }
 
-    public function categories(){
+    public function category(){
     	return $this->belongTo('App\Category');
     }
 }

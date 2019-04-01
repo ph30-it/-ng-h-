@@ -23,7 +23,7 @@ class HomeController extends Controller
      */
     public function index()
 
-    {    $product=Product->count($id);
-        return view('admin.home');
+    {   
+        
     }
 }

@@ -69,6 +69,7 @@
 
                   @endforeach
               </tbody>
+
     </table>
              <div class="pagina" >
                   <ul class="pagination" style="margin-left: 500px">

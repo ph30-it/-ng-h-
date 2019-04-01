@@ -15,10 +15,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user=User::all();
-        return view('admin.user.home',compact('user'));
-
-        }    
+        
+    }    
 
     /**
      * Show the form for creating a new resource.

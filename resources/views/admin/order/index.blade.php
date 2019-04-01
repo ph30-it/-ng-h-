@@ -26,6 +26,7 @@
           </tr>
         </thead>
         <tbody>
+
        @foreach($order as $item)
       <?php 
         $user=App\User::where('id',$item->user_id)->first();
@@ -42,6 +43,7 @@
                                  <td style="text-align: center;"> <form action="{{ route('delete-order',$item->id)}}" method="">
                 @csrf
                 <button type="submit" class="btn btn-danger"><i class="fa fa-trash-o"></i></button> 
+
             </form></td>
         </tr>
         @endforeach
@@ -60,5 +62,6 @@
                     @endif
                 </ul>
              </div>
+
    
 @endsection

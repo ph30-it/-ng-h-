@@ -40,6 +40,7 @@ class UserController extends Controller
      public function store(Request $request)
     {
        try{
+
         $data= $request->all(); 
         User::create($data);
         return redirect()->route('index-user')->with('status','thêm thành công');

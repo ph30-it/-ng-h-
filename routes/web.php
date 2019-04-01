@@ -11,12 +11,14 @@
 |
 */
 
+Auth::routes();
 Route::group(['namespace'=>'Admin'],function(){
 Route::get('/admin', function () {
     return view('admin.home');
 });
 
-Route::group(['namespace'=>'product'],function(){
+	Route::group(['namespace'=>'product'],function(){
+
 
 Route::get('/admin/product','AdminController@index')->name('index-product');
 Route::get('/admin/product/{id}/show','AdminController@showproduct')->name('show-product');
@@ -59,7 +61,7 @@ Route::get('/admin/user/{id}/edit', 'UserController@edit')->name('edit-user');
 Route::put('/admin/user/{id}', 'UserController@update')->name('update-user');
 });
 
-Route::group(['namespace'=>'role'],function(){
+Route::group(['namespace'=>'role'], function(){
 
 Route::get('/admin/role','RoleController@index')->name('index-role');
 Route::get('/admin/role/{id}','RoleController@destroy')->name('delete-role');
@@ -93,18 +95,45 @@ Route::get('/admin/order/{id}/edit', 'OrderController@edit')->name('edit-order')
 Route::put('/admin/order/{id}', 'OrderController@update')->name('update-order');
 
 
+
+
+	});
+
+	
 });
+
+
+route::group(['namespace' => 'home'], function(){
+
+	Route::get('/', 'HomeController@index')->name('home');
+	Route::get('/wishlist', 'WishlistController@index')->name('wishlist');
+	Route::get('/contact', 'ContactController@index')->name('contact');
+	
+	route::group(['namespace' => 'categories'], function(){
+		Route::get('/', 'CategoryController@index')->name('home');
+		
+	});
+
+	route::group(['namespace' => 'products'], function(){
+		Route::get('/shop', 'ProductController@index')->name('shop');
+		Route::get('/{id}/product-detail', 'ProductController@show')->name('product-detail');
+		
+	});
+
+	route::group(['namespace' => 'cart'], function(){
+		
+		Route::get('/{id}/add-cart','CartController@addcart')->name('add-cart');
+		Route::get('/cart','CartController@index')->name('cart-index');
+		Route::get('/cart/{id}/delete-product-cart','CartController@destroy')->name('delete-product-cart');
+		Route::get('/cart/{id}/increase-products','CartController@increase')->name('increase-products');
+		Route::get('/cart/{id}/reduce-products','CartController@reduction')->name('reduce-products');
+
+		Route::get('/checkout', 'OrderController@index')->name('checkout');
+	});
+		
 });
+route::group(['namespace' => 'Auth'], function(){
 
-
-
-
-
-
-
-
-
-
-
-
+	Route::get('/account', 'LoginController@index')->name('account');
+});
 

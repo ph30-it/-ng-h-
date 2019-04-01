@@ -16,7 +16,9 @@ class OrderController extends Controller
      */
     public function index()
     {
+
         $order=Order::paginate(5);
+        $order=Order::all();
         return view('admin.order.index',compact('order'));
         
         }    
@@ -85,6 +87,7 @@ class OrderController extends Controller
             return redirect()->route('edit-order')->with('status','xữ lý đơn hàng thất bại');
 
          } 
+
     }
 
     /**
@@ -93,6 +96,7 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
      public function destroy($id){
 
 
@@ -104,5 +108,6 @@ class OrderController extends Controller
         return redirect()->route('index-order')->with('status','xóa đơn hàng thành công');
     }
     return redirect()->route('index-order')->with('status','xóa đơn hàng thất bại');
+
     }
 }

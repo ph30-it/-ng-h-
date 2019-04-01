@@ -10,6 +10,7 @@
            <div class="container" style="width: 400px">
 	
 	<form action="{{ route('addproduct')}}" method="POST" enctype="multipart/form-data">
+
 	   @csrf
 	  <div class="form-group">
 	     <label for="name">Name :</label>
@@ -41,6 +42,7 @@
 	           <label for="path">Image:</label>
 	                  <input type="file" class="form-control" id="path" name="path">
 	  </div>
+
 	            <label for="category_id">Category:</label>
 	          <select name="category_id" id="category_id">
 	    	        @foreach ($categoryID as $key => $value)

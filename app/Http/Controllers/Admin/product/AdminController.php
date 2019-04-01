@@ -17,6 +17,7 @@ class AdminController extends Controller
      * @return \Illuminate\Http\Response
      */
    public function index(){
+
    	$products =Product::paginate(5);
      $category=Category::pluck('name','id');
    	return view('admin.product.home',compact('products','category'));
@@ -67,6 +68,7 @@ class AdminController extends Controller
                $name_image = $request->path->getClientOriginalName();
                 $newName = '/images/admin/'.md5(microtime(true)).$name_image;
                 $request->path->move(public_path('/images/admin/'), $newName);
+
                 $data['path'] = $newName;
                 
                 Image::create([
@@ -80,6 +82,7 @@ class AdminController extends Controller
              }
            catch(\Exception $e) {
             
+
                 return redirect()->route('create-product')->with('status','thêm sản phẩm thất bai');
             
                               }
@@ -125,11 +128,12 @@ class AdminController extends Controller
         $products = Product::find($id);
         $data= $request->all();
         $products->update($data);
+
         return redirect()->route('index-product')->with('status','sửa sản phẩm thành công');
     }catch (\Exception $ex) {
             
                 return redirect()->route('edit-product')->with('status','sửa sản phẩm thất bại ');
-            
+
             }
       
     }
