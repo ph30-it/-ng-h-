@@ -8,7 +8,7 @@ class Order extends Model
 {
     //
     protected $fillable = [
-        'name','time_Order', 'address','phone', 'status','user_id','note'
+        'name','time_Order', 'address','phone', 'status','user_id','note','total'
     ];
 
     public function user(){

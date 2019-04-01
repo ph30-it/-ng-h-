@@ -39,6 +39,7 @@ class OrderController extends Controller
         'address'=> $data['address'],
         'phone'=> $data['phone'],
         'note'=> $data['note'],
+        'total'=>Cart::getTotal(),
         'user_id'=> Auth::user()->id,
       ]);
       $carts  = Cart::getcontent();

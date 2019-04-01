@@ -1,5 +1,5 @@
 Thông tin đơn hàng của bạn:<br />
-Tên: {!! $name !!}<br />
+Tên người nhận: {!! $name !!}<br />
 Số điện thoại: {!! $phone !!} <br>
 Địa chỉ: {!! $address !!} <br>
 Số lượng: {!! $quantity !!} <br>

@@ -12,7 +12,7 @@
 */
 
 Auth::routes();
-Route::group(['namespace'=>'Admin','middleware' => 'CheckRole'],function(){
+/*Route::group(['namespace'=>'Admin'],function(){
 
 
 	Route::group(['namespace'=>'product'],function(){
@@ -89,12 +89,16 @@ Route::group(['namespace'=>'Admin','middleware' => 'CheckRole'],function(){
 		Route::get('/order/{id}/edit', 'OrderController@edit')->name('edit-order');
 		Route::put('/order/{id}', 'OrderController@update')->name('update-order');
 	});
-});
+});*/
 
+route::get('/quick',function(){
+	return view('home.products.quick-view');
+});
 
 route::group(['namespace' => 'home'], function(){
 
 	Route::get('/', 'HomeController@index')->name('home');
+	Route::get('/search','HomeController@search')->name('search');
 	Route::get('/wishlist', 'WishlistController@index')->name('wishlist');
 	Route::get('/contact', 'ContactController@index')->name('contact');
 	Route::post('/send-email', 'ContactController@senmai')->name('send-email');
@@ -107,6 +111,7 @@ route::group(['namespace' => 'home'], function(){
 	route::group(['namespace' => 'products'], function(){
 		Route::get('/shop', 'ProductController@index')->name('shop');
 		Route::get('/{id}/product-detail', 'ProductController@show')->name('product-detail');
+		Route::post('/comment','ProductController@comment')->name('comment');
 		
 	});
 

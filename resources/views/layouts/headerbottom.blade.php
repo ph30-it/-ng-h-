@@ -45,8 +45,8 @@
               <!-- / cart box -->
               <!-- search box -->
               <div class="aa-search-box">
-                <form action="">
-                  <input type="text" name="" id="" placeholder="Search product ">
+                <form method="GET" action="{{ route('search') }}">
+                  <input type="text" name="search" id="" placeholder="Search product ">
                   <button type="submit"><span class="fa fa-search"></span></button>
                 </form>
               </div>

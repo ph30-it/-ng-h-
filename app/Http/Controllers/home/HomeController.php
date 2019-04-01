@@ -19,6 +19,21 @@ class HomeController extends Controller
         
         return view('home.index');
     }
+
+    public function search(Request $request)
+     {
+       $search = $request->get('search');
+            if($search != ''){
+                $products = Product::with('category')->where('id', 'like', '%'.$search.'%')
+                        ->orWhere('name', 'like', '%'.$search.'%')
+                        ->orWhere('price', 'like', '%'.$search.'%')
+                        ->orderBy('id', 'desc')->paginate(4);
+                        //dd($products);
+            return view('home.products.search',compact('products','search'));
+            }else{
+              return redirect()->back();
+            }
+     }
     /**
      * Show the form for creating a new resource.
      *

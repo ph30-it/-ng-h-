@@ -21,6 +21,7 @@ class CreateOrderTable extends Migration
             $table->string('status')->default('0');
             $table->integer('phone');
             $table->string('note')->default('null');
+            $table->integer('total');
             $table->integer('user_id');
             $table->timestamps();
         });
