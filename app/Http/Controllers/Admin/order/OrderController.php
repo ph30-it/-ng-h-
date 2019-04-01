@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Order;
 use App\User;
 use App\Order_detail;
+use App\Product;
 class OrderController extends Controller
 {
    /**
@@ -15,6 +16,8 @@ class OrderController extends Controller
      */
     public function index()
     {
+
+        $order=Order::paginate(5);
         $order=Order::all();
         return view('admin.order.index',compact('order'));
         
@@ -60,9 +63,9 @@ class OrderController extends Controller
      */
      public function edit($id)
     {
-        $order= Order::find($id);
-        $order_detail=Order_detail::all();
-        return view('admin.order.edit', compact('order','order_detail'));
+        $order= Order::find($id)->order_details;
+        $product=Product::pluck('id','name');
+        return view('admin.order.edit', compact('order','product'));
     }
 
     /**
@@ -74,11 +77,17 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+       try{
         $order = Order::find($id);
         $data= $request->all();
         $order->update($data);
-        return redirect()->route('index-order')->with('status','xữ lý thành công');
+        return redirect()->route('index-order')->with('status','xữ lý đơn hàng thành công');
+       }
+         catch(\Exception $e) {
+            return redirect()->route('edit-order')->with('status','xữ lý đơn hàng thất bại');
+
+         } 
+
     }
 
     /**
@@ -87,8 +96,18 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+
+     public function destroy($id){
+
+
+        $order=Order::find($id);
+        if ($order!=null) {
+           
+      
+        $order->delete();
+        return redirect()->route('index-order')->with('status','xóa đơn hàng thành công');
+    }
+    return redirect()->route('index-order')->with('status','xóa đơn hàng thất bại');
+
     }
 }

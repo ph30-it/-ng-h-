@@ -17,7 +17,8 @@ class AdminController extends Controller
      * @return \Illuminate\Http\Response
      */
    public function index(){
-   	$products =Product::all();
+
+   	$products =Product::paginate(5);
      $category=Category::pluck('name','id');
    	return view('admin.product.home',compact('products','category'));
    }
@@ -65,8 +66,8 @@ class AdminController extends Controller
       
        if ($request->hasFile('path')) {
                $name_image = $request->path->getClientOriginalName();
-                $newName = '/images/product/'.md5(microtime(true)).$name_image;
-                $request->path->move(public_path('/images/product/'), $newName);
+                $newName = '/images/admin/'.md5(microtime(true)).$name_image;
+                $request->path->move(public_path('/images/admin/'), $newName);
                 $data['path'] = $newName;
                 Image::create([
                      'path'=>$newName,
@@ -79,11 +80,26 @@ class AdminController extends Controller
              }
            catch(\Exception $e) {
             
-                return redirect()->route('index-product')->with('status','thêm sản phẩm thất bai');
+
+                return redirect()->route('create-product')->with('status','thêm sản phẩm thất bai');
             
                               }
      
     }
+      /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showproduct($id)
+    {
+       $products = Product::with('images')->where('id', $id)->get();
+        $category= Category::pluck('name', 'id');
+        return view('admin.product.show', compact('products', 'category'));
+    }
+
+  
  /**
      * 
      *
@@ -110,12 +126,14 @@ class AdminController extends Controller
         $products = Product::find($id);
         $data= $request->all();
         $products->update($data);
-        return redirect()->route('index-product')->with('status','xữa sản phẩm thành công');
+
+        return redirect()->route('index-product')->with('status','sửa sản phẩm thành công');
     }catch (\Exception $ex) {
             
-                return redirect()->route('index-product')->with('status','xữa sản phẩm ');
-            
+                return redirect()->route('edit-product')->with('status','sửa sản phẩm thất bại ');
+
             }
       
     }
+   
 }

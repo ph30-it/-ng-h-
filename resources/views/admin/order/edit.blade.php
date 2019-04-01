@@ -1,40 +1,74 @@
 @extends('admin.layout.master')
 @section('content')
-<h1>EDIT PRODUCT</h1>
 <div class="container">
 	
-	<form action="{{ route('update-order', $order->id)}}" method="POST">
-	@csrf
-	@method('PUT')
-	<?php 
-      $order_detail=App\Order_detail::pluck('id','quantity','price','product_id','order_id');
-
-	?>
-	<div class="form-group">
-	    <label for="id">ID_order :</label>
-	    <input type="text" class="form-control" id="id" name="id"  value="{{ $order->id }}">
-	  </div>
-	  <div class="form-group">
-	    <label for="quantity">Quantity :</label>
-	    <input type="text" class="form-control" id="quantity" name="quantity"  value="{{ $order_detail->quantity }}">
-	  </div>
-	   <label for="price">Price:</label>
-	    <input type="text" class="form-control" id="price" name="price" value="{{$order_detail->price}}">
-	  </div>
-	  <div class="form-group">
-	    <label for="product_id">Product_id:</label>
-	    <input type="text" class="form-control" id="product_id" name="product"value="{{$order_detail->product_id}}">
-	  </div>
-	  <div class="form-group">
-	    <label for="order_id">Order_id:</label>
-	    <input type="text" class="form-control" id="order_id" name="order_id" value="{{$order_detail->order_id}}">
-	  </div>
-	 <div class="form-group">
-	    <label for="status">Status:</label>
-	    <input type="text" class="form-control" id="status" name="status" value="{{$order->status}}">
-	  </div>
-	    <button type="submit" class="btn btn-default "  >Submit</button>
-	  </div>
-	</form>
+	<div style="background:  #66CC33;height: 40px">
+     <h3 style="text-align: center;color:white"><i>Chi tiết đơn đặt hàng</i></h3> <br> 
+      </div> 
+        @if(session('status'))
+    <div style="background: #66CC33;height: 50px;margin-bottom: -25px ">
+      <p style="text-align: center;color: red">{{session('status')}}</p>
+      </div><br>
+  @endif
+ <div style="margin-left: 1000px;margin-top: 40px;margin-bottom: -55px">
+   <a href="{{route('index-order')}} " class="btn btn-primary"><i class='fas fa-arrow-circle-left'></i></a> </td> 
 </div>
+    <table class="table table-hover" style="margin-top: 60px">
+      <thead>
+        <tr style="background:#666666 ;color:white" >
+          <th style="text-align: center; ">ID</th>
+           <th style="text-align: center;width:25% ">Tên sản phẩm</th>
+            <th style=" text-align: center;">Ảnh sản phẩm</th>
+             <th style=" text-align: center;">Số lượng</th>
+               <th style=" text-align: center;"></th> 
+               <th style="text-align: center; ">Giá</th>
+                 <th style="text-align: center;">Tổng hóa đơn</th>
+                 <th style="text-align: center;"></th>		
+
+
+          </tr>
+        </thead>
+        <tbody>
+       @foreach($order as $item)
+          <?php    
+              $product=App\Product::where('id',$item->product_id)->first();
+              $image=App\Image::where('id',$item->product_id)->first();
+
+
+          ?>
+          <tr>
+            <td style="text-align: center;"><b>{{$item->id}}</b></td>
+                 <td style="text-align: center;"><b>{{$product->name}}</b></td>
+                    <td style="text-align: center;"><img src="{{asset($image->path)}}" style="width:150px "></td>
+                   <td style="text-align: center;"><b>{{$item->quantity}}</b></td>
+                      <td style="text-align: center;"> X</td>
+                       <td style="text-align: center;"><b>{{$item->price}}.đ</b></td>
+                           <td style="text-align: center;"><b>{{$item->total}}</b></td>
+                                 <td style="text-align: center;"> <form action="{{ route('delete-order',$item->id)}}" method="">
+                @csrf
+                <button type="submit" class="btn btn-danger"><i class="fa fa-trash-o"></i></button> 
+            </form></td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+</div>
+ <form action="{{ route('update-order',$item->id)}}" method="POST" ype="multipart/form-data">
+	   @csrf
+	   @method('PUT')
+    <div class="action" style="text-align: center;">
+    	<label for="status">Xữ lý đơn hàng:</label>
+	          <select name="status" id="status">
+	          	<option value="{{$item->status}}">{{$item->status}}</option>
+	    		<option value="Đã nhận đơn ">Đã nhận đơn</option>
+	    		<option value="Đã giao hàng ">Đã giao hàng </option>
+	    		<option value="Đã hủy đơn ">Đã hũy đơn</option>
+	         </select><br>
+	     <button type="submit" class="btn btn-default" style="background: blue;color: white;"><b>Lưu <i class='fas fa-vote-yea'></i></button>
+
+
+    </div>
+	</form>
+   
+
 @endsection

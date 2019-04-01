@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user=User::all();
+        $user=User::paginate(8);
         return view('admin.user.home',compact('user'));
 
         }    
@@ -40,7 +40,8 @@ class UserController extends Controller
      public function store(Request $request)
     {
        try{
-        $data= $request->all();
+
+        $data= $request->all(); 
         User::create($data);
         return redirect()->route('index-user')->with('status','thêm thành công');
           }catch(Exception $e){
