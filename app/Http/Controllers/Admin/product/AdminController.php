@@ -17,8 +17,9 @@ class AdminController extends Controller
      * @return \Illuminate\Http\Response
      */
    public function index(){
-   	$products =Product::all();
-   	return view('admin.product.home',compact('products'));
+   	$products =Product::paginate(5);
+     $category=Category::pluck('name','id');
+   	return view('admin.product.home',compact('products','category'));
    }
     /**
      *
@@ -35,9 +36,9 @@ class AdminController extends Controller
         $products->delete();
         //cach 2 
         // $products::destroy($id);
-        return redirect()->route('index-product');
+        return redirect()->route('index-product')->with('status','xóa thành công');
     }
-    return redirect()->route('index-product');
+    return redirect()->route('index-product')->with('status','xóa thất bại');
     }
       /**
      * Show the form for creating a new resource.
@@ -57,11 +58,47 @@ class AdminController extends Controller
      */
      public function store(Request $request)
     {
+         try{
 
-        $data= $request->all();
-        Product::create($data);
-        return redirect()->route('index-product');
+        $data= $request->except('path');
+        $product = Product::create($data);
+      
+       if ($request->hasFile('path')) {
+               $name_image = $request->path->getClientOriginalName();
+                $newName = '/images/admin/'.md5(microtime(true)).$name_image;
+                $request->path->move(public_path('/images/admin/'), $newName);
+                $data['path'] = $newName;
+                
+                Image::create([
+                     'path'=>$newName,
+                     'product_id'=>$product->id,
+
+                ]);
+                 
+                return redirect()->route('index-product')->with('status','thêm sản phẩm thành công');
+                                       }
+             }
+           catch(\Exception $e) {
+            
+                return redirect()->route('create-product')->with('status','thêm sản phẩm thất bai');
+            
+                              }
+     
     }
+      /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showproduct($id)
+    {
+       $products = Product::with('images')->where('id', $id)->get();
+        $category= Category::pluck('name', 'id');
+        return view('admin.product.show', compact('products', 'category'));
+    }
+
+  
  /**
      * 
      *
@@ -84,10 +121,17 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        try{
         $products = Product::find($id);
         $data= $request->all();
         $products->update($data);
-        return redirect()->route('index-product');
+        return redirect()->route('index-product')->with('status','sửa sản phẩm thành công');
+    }catch (\Exception $ex) {
+            
+                return redirect()->route('edit-product')->with('status','sửa sản phẩm thất bại ');
+            
+            }
+      
     }
+   
 }

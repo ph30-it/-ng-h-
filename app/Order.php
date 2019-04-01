@@ -8,15 +8,15 @@ class Order extends Model
 {
     //
     protected $fillable = [
-        'time_Order', 'address', 'status','user_id'
+        'time_Order', 'address', 'status','user_id','total'
     ];
 
     public function user(){
     	return $this->belongTo('App\User');
     }
 
-    public function order-details()
+    public function order_details()
     {
-        return $this->hasOne('App\Order-details');
+        return $this->hasMany('App\Order_detail');
     }
 }

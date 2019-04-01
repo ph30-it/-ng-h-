@@ -35,10 +35,14 @@ class CategoryController extends Controller
      */
      public function store(Request $request)
     {
-
+    try{
         $data= $request->all();
         Category::create($data);
-        return redirect()->route('index-category');
+        return redirect()->route('index-category')->with('status','thêm thành công');
+    }catch(Exception $e){
+        return redirect()->route('index-category')->with('status','thêm thất bại');
+
+    }
     }
  /**
 
@@ -74,12 +78,15 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        try{
         $category = Category::find($id);
         $data= $request->all();
         $category->update($data);
-        return redirect()->route('index-category');
+        return redirect()->route('index-category')->with('status','sửa thành công');
+    }catch(Exception $e){
+        return redirect()->route('index-category')->with('status','sửa tthất bại');
     }
+}
 
     /**
      * Remove the specified resource from storage.
@@ -96,9 +103,9 @@ class CategoryController extends Controller
         $products->delete();
         //cach 2 
         // $products::destroy($id);
-        return redirect()->route('index-category');
+        return redirect()->route('index-category')->with('status','xóa thành công');
     }
-    return redirect()->route('index-category');
+    return redirect()->route('index-category')->with('status','xóa thất bại');
     }
     //
 }
