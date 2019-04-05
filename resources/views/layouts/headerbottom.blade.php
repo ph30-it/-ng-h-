@@ -45,11 +45,44 @@
               <!-- / cart box -->
               <!-- search box -->
               <div class="aa-search-box">
-                <form method="GET" action="{{ route('search') }}">
-                  <input type="text" name="search" id="" placeholder="Search product ">
-                  <button type="submit"><span class="fa fa-search"></span></button>
-                </form>
-              </div>
+                <div class="form-group">
+                  <form method="POST" action="{{ route('search-product') }}">
+                    @csrf
+                    <input type="text" name="search_product" id="search_product" class="form-control search-input input-lg" autocomplete="off" placeholder="Search product " />
+                  </form>
+                  <div id="searchList"><br>
+                  </div>
+                </div>
+              </div> 
+              
+              <script>
+                $(document).ready(function(){
+
+                 $('#search_product').keyup(function(){
+                  var query = $(this).val(); 
+                  if(query != '') 
+                  {
+                   var _token = $('input[name="_token"]').val(); 
+                   $.ajax({
+                    url:"{{ route('search') }}",
+                    method:"GET", 
+                    data:{query:query, _token:_token},
+                    success:function(data){ 
+                      $('#searchList').fadeIn();  
+                      $('#searchList').html(data); 
+                    }
+                    
+                  });
+                }
+               });
+
+                 $(document).on('click', 'li', function(){  
+                  $('#search_product').val($(this).text());  
+                  $('#searchList').fadeOut();  
+                });  
+
+               });
+              </script>
               <!-- / search box -->             
             </div>
           </div>

@@ -29,10 +29,11 @@
 			                    		@foreach($products as $item)
 			                    		<li>
 			                    			<figure>
+
 			                    				<a class="aa-product-img" href="{{route('product-detail',$item['id'])}}"><img src="{{asset($item['images'][0]['path'])}}" alt="polo shirt img" style="width:230px;height: 300px"></a>
 			                    				<a class="aa-add-card-btn"href="{{ route('add-cart', $item['id']) }}"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
 			                    				<figcaption>
-			                    					<h4 class="aa-product-title"><a href="{{route('product-detail',$item['id'])}}">{{ $item['name'] }}</a></h4>
+			                    					<h4 class="aa-product-title"><a href="{{route('product-detail',$item['id'])}}">{{ $item['description'] }}</a></h4>
 			                    					<span class="aa-product-price">{{ number_format($item['price']-($item['price']*$item['priceSale']/100)).'₫' }}</span><span class="aa-product-price"><del>{{ number_format($item['price']).'₫' }}</del></span>
 			                    				</figcaption>
 			                    			</figure>                        
@@ -43,7 +44,7 @@
 			                    			</div>
 			                    			<!-- product badge -->
 			                    			@if($item['priceSale'] != 0)
-												<span class="aa-badge aa-sold-out" style="margin-top: 30px;" href="#">SALE!</span>
+												<span class="aa-badge aa-sold-out" style="margin-top: 30px;" href="#">SALE {{ $item['priceSale'] }}%</span>
 											@endif
 											@foreach($newproduct as $new)	
 											@if($new['id']==$item['id'])
@@ -56,7 +57,7 @@
 			                    		</li>
 			                    		@endforeach 
 			                    	</ul>
-			                    	<a class="aa-browse-btn" href="#">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
+			                    	<a class="aa-browse-btn" href="{{ route('shop') }}">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
 			                    </div><br>
 			                    <!-- / men product category -->
 							</div>
@@ -172,10 +173,11 @@
 		                  		@foreach($newproduct as $item)
 	                    		<li>
 	                    			<figure>
+
 	                    				<a class="aa-product-img" href="{{route('product-detail',$item['id'])}}"><img src="{{asset($item['images'][0]['path'])}}" alt="polo shirt img" style="width: 230px;height: 300px"></a>
 	                    				<a class="aa-add-card-btn"href="{{ route('add-cart', $item['id']) }}"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
 	                    				<figcaption>
-	                    					<h4 class="aa-product-title"><a href="{{route('product-detail',$item['id'])}}">{{ $item['name'] }}</a></h4>
+	                    					<h4 class="aa-product-title"><a href="{{route('product-detail',$item['id'])}}">{{ $item['description'] }}</a></h4>
 	                    					<span class="aa-product-price">{{ number_format($item['price']-($item['price']*$item['priceSale']/100)).'₫' }}</span><span class="aa-product-price"><del>{{ number_format($item['price']).'₫' }}</del></span>
 	                    				</figcaption>
 	                    			</figure>                        
@@ -196,8 +198,33 @@
 		                <!-- start featured product category -->
 		                <div class="tab-pane fade" id="hot">
 		                 	<ul class="aa-product-catg aa-featured-slider">
+
 		                    <!-- start single product item -->
-			                    
+		                	@foreach($hotproduct as $item)
+                    		<?php $query = App\Product::where('id', $item->product_id)->get();
+
+                    		 ?>
+                    		@foreach($query as $item)
+								<li>
+	                    			<figure>
+	                    				<a class="aa-product-img" href="{{route('product-detail',$item['id'])}}"><img src="{{asset($item['images'][0]['path'])}}" alt="polo shirt img"></a>
+	                    				<a class="aa-add-card-btn"href="{{ route('add-cart', $item['id']) }}"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+	                    				<figcaption>
+	                    					<h4 class="aa-product-title"><a href="{{route('product-detail',$item['id'])}}">{{ $item['description'] }}</a></h4>
+	                    					<span class="aa-product-price">{{ number_format($item['price']-($item['price']*$item['priceSale']/100)).'₫' }}</span><span class="aa-product-price"><del>{{ number_format($item['price']).'₫' }}</del></span>
+	                    				</figcaption>
+	                    			</figure>                        
+	                    			<div class="aa-product-hvr-content">
+	                    				<a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+	                    				
+	                    				<a href="" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                          
+	                    			</div>
+	                    			<!-- product badge -->
+										<span class="aa-badge aa-hot" href="#">HOT!</span>
+	                    		</li>
+                    		@endforeach
+                    		@endforeach
+	                    		  
 			                      
 		                  	</ul>
 		                  	<a class="aa-browse-btn" href="{{ route('shop') }}">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
@@ -211,10 +238,10 @@
 			                    @foreach($saleproduct as $item)
 	                    		<li>
 	                    			<figure>
-	                    				<a class="aa-product-img" href="{{route('product-detail',$item['id'])}}"><img src="{{$item['images'][0]['path']}}" alt="polo shirt img"></a>
+	                    				<a class="aa-product-img" href="{{route('product-detail',$item['id'])}}"><img src="{{asset($item['images'][0]['path'])}}" alt="polo shirt img"></a>
 	                    				<a class="aa-add-card-btn"href="{{ route('add-cart', $item['id']) }}"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
 	                    				<figcaption>
-	                    					<h4 class="aa-product-title"><a href="{{route('product-detail',$item['id'])}}">{{ $item['name'] }}</a></h4>
+	                    					<h4 class="aa-product-title"><a href="{{route('product-detail',$item['id'])}}">{{ $item['description'] }}</a></h4>
 	                    					<span class="aa-product-price">{{ number_format($item['price']-($item['price']*$item['priceSale']/100)).'₫' }}</span><span class="aa-product-price"><del>{{ number_format($item['price']).'₫' }}</del></span>
 	                    				</figcaption>
 	                    			</figure>                        
@@ -224,7 +251,7 @@
 	                    				<a href="" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                          
 	                    			</div>
 	                    			<!-- product badge -->
-										<span class="aa-badge aa-sold-out" href="#">SALE!</span>
+										<span class="aa-badge aa-sold-out" href="#">SALE {{ $item['priceSale'] }}%</span>
 	                    		</li>
 	                    		@endforeach
 			                    

@@ -28,7 +28,8 @@ class ProductController extends Controller
         }
         $newproduct = Product::with('images')->orderBy('id','DESC')->LIMIT(8)->get()->toArray();
         $saleproduct = Product::with('images')->where('priceSale','!=',0)->get()->toArray(); 
-        return view('home.products.shop', compact('categories','products','newproduct','saleproduct'));
+        $toprate = Comment::selectRaw('product_id, sum(rate) as sumrate' )->groupBy('product_id')->take(5)->get();
+        return view('home.products.shop', compact('categories','products','newproduct','saleproduct','toprate'));
     }
     /**
      * Show the form for creating a new resource.
@@ -64,7 +65,7 @@ class ProductController extends Controller
         //
         $product = Product::with('images')->find($id)->toArray();
         $category = Category::with('products')->Where('id', $product['category_id'])->get()->toArray();
-        $relatedproduct = Product::with('images')->where('category_id',$category[0]['id'])->get()->toArray();
+        $relatedproduct = Product::with('images')->where('category_id',$category[0]['id'])->limit(8)->get()->toArray();
         $comments = Comment::where('product_id',$id)->get();
         //dd($comments);
         return view('home.products.product-detail', compact('product', 'category','relatedproduct','comments'));
