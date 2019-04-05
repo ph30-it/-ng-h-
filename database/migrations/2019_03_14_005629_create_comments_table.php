@@ -17,7 +17,7 @@ class CreateCommentsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->nullable();
             $table->string('email')->unique()->nullable();
-            $table->string('content');
+            $table->string('content')->nullable();
             $table->string('rate')->nullable();
             $table->integer('product_id');
             $table->integer('user_id')->nullable();
