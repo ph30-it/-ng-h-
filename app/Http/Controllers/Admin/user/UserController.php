@@ -39,8 +39,13 @@ class UserController extends Controller
      */
      public function store(Request $request)
     {
-       try{
 
+        $this->validate($request,[
+            'name'=>'required',
+            'email'=>'required',
+            'password'=>'required',
+        ]);
+       try{ ê
         $data= $request->all(); 
         User::create($data);
         return redirect()->route('index-user')->with('status','thêm thành công');
@@ -101,7 +106,11 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-         $user=User::find($id);
+        $user=User::find($id);
+        $user->comments()->delete();
+        $user->order()->delete();
+        $user->delete();
+
         if ($user!=null) {
             # code...
       
@@ -112,4 +121,11 @@ class UserController extends Controller
     }
     return redirect()->route('index-user')->with('status','xóa thất bại');
     }
+
+   public function search(Request $request){
+     $user=User::where('name','like','%'.$request->key.'%')->get();
+     
+     return view('admin.user.search',compact('user'));
+    }
+   
 }

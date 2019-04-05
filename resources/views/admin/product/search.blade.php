@@ -1,6 +1,7 @@
 @extends('admin.layout.master')
 @section('content') 
-  <div style="background: #66CC33;height: 40px">
+ 
+ <div style="background: #66CC33;height: 40px">
       <h3 style="text-align: center;color:white " ><i>Chào mừng bạn tới trang sản phẩm </i></h3> <br>  
           </div>
                   @if(session('status'))
@@ -8,11 +9,9 @@
                   <p style="text-align: center;color: white"><b>{{session('status')}}</b></p>
                  </div><br>
              @endif 
- 
- 
           <a href="{{ route('create-product')}}"class="btn btn-primary" style="margin-left: 910px;margin-top: 40px;margin-bottom: -40px">+ Add</a><br>
      <div class="form-inline">
-          <form class="search-form" method="get" action="{{route('search-product')}}">
+                           <form class="search-form" method="get" action="{{route('search-product')}}">
              @csrf
                 <input class="form-control mr-sm-2" type="text" placeholder="Search ..."  name='key' id='key'>
                 <button class="search" type="submit"><i class="fa fa-search" style="width: 20px;height: 20px"></i></button>
@@ -50,10 +49,10 @@
                                <td style="text-align: center;"><b>{{$category->name}}<b/></td>
                                  <td><img src="{{asset($img->path)}}" style="height: 150px;width: 200px" > </td> 
                                     <td style="text-align: center;"><a href="{{route('show-product',$item->id)}} " class="btn btn-primary">Chi tiết</a> </td> 
-                               <td style="text-align: center;"> 
-                          <form action="{{  route('delete-product',$item->id)}}" method="">
-                                                  @csrf        
-                          <button type="submit" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+      <td style="text-align: center;"> <form action="{{  route('delete-product',$item->id)}}" method="">
+                                     @csrf
+                                  
+                                            <button type="submit" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
                                     </form> 
                                        </td>
                </tr>
@@ -62,18 +61,6 @@
               </tbody>
 
     </table>
-             <div class="pagina" >
-                  <ul class="pagination" style="margin-left: 500px">
-                      @if($products->currentPage() !=1)
-                          <li><a href="{!!str_replace('/?','?',$products->url($products->lastPage()-1))!!}" style="font-size:120%">&laquo;</a></li>
-                      @endif
-                         @for($i=1;$i<=$products->lastPage();$i=$i+1)
-                            <li><a href="{!!str_replace('/?','?',$products->url($i))!!}" style="font-size:120%" >{!!$i!!}|</a></li>
-                         @endfor
-                    @if($products->currentPage() !=$products->lastPage())
-                          <li><a href="{!!str_replace('/?','?',$products->url($products->lastPage()+1))!!}" style="font-size:120%">&raquo;</a></li>
-                    @endif
-                </ul>
-             </div>
+            
    
 @endsection 

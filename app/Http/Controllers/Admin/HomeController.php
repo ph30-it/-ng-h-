@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use Auth;
+use App\Product;
+use App\Category;
+use App\Comment;
 
 class HomeController extends Controller
 {
@@ -16,22 +19,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        /*if(Auth::check())
-        { 
-            if(Auth::user()->role_id == 2)
-            {
-                return view('admin.home');
-            }else
-            {
-                Auth::logout();
-                return redirect()->intended('account')->with('status','Bạn phải đăng nhập bằng tài khoản Admin mới được sử dụng chức năng Admin!');
-            }
-            
-        }else{
-            return redirect()->intended('account')->with('status','Bạn phải đăng nhập bằng tài khoản Admin mới được sử dụng chức năng Admin!');
-        }*/
-        return view('admin.home');
-    }   
+         $product = Product::count('id');
+        $category = Category::count('id');
+        $user = User::count('id');
+        $comment = Comment::count('id');
+        return view('admin.home',compact('product','category','user','comment'));
+    }    
+
     /**
      * Show the form for creating a new resource.
      *

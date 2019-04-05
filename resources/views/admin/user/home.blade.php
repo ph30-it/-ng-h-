@@ -1,12 +1,23 @@
 @extends('admin.layout.master')
 @section('content') 
-<h3 style="text-align: center;"><b>User Table</b></h3> <br> 
-<a href="{{ route('create-user')}}"class="btn btn-primary" style="margin-left: 900px;background: #0000FF;margin-bottom: 10px"><b>+ Add</b></a>
-@if(session('status'))
-   <div style="background:#00CC66 ;width: 900px;margin-left: 100px;text-align: center;height: 50px;margin-bottom: -25px">   <p style="color: white">{{session('status')}}</p>
-   </div><br>
-@endif   
-    <table class="table table-hover" style="width: 900px;margin-left: 100px">
+<div style="background:  #66CC33;height: 40px">
+     <h3 style="text-align: center;color:white"><i>Chào mừng bạn tới trang khách hàng</i></h3> <br> 
+  </div> 
+        @if(session('status'))
+    <div style="background: #66CC33;height: 50px;margin-bottom: -25px">
+      <p style="text-align: center;color:white">{{session('status')}}</p>
+      </div><br>
+  @endif
+  <a href="{{ route('create-product')}}"class="btn btn-primary" style="margin-left: 910px;margin-top: 60px;margin-bottom: -40px">+ Add</a><br>  
+  <div class="form-inline">
+          <form class="search-form" method="get" action="{{route('search-user')}}">
+             @csrf
+                <input class="form-control mr-sm-2" type="text" placeholder="Search ..."  name='key' id='key'>
+                <button class="search" type="submit"><i class="fa fa-search" style="width: 20px;height: 20px"></i></button>
+            </form>
+                        </div>
+
+    <table class="table table-hover" style="">
       <thead>
         <tr style="background:#666666 ;color:white ">
           <th style="text-align: center;">ID</th>
@@ -15,7 +26,7 @@
           <th style="text-align: center;">Password</th>
           <th style="text-align: center;">Role</th>
           <th style="text-align: center;">Action</th>
-          <th style="text-align: center;">Delete</th>
+          <th style="text-align: center;"></th>
 
 
         </tr>
