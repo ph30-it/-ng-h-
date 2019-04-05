@@ -13,9 +13,8 @@
 
 
 Route::group(['namespace'=>'Admin'],function(){
-Route::get('/admin', function () {
-    return view('admin.home');
-});
+Route::get('/admin', 'HomeController@index')->name('index');
+
 
 	Route::group(['namespace'=>'product'],function(){
 
@@ -27,6 +26,7 @@ Route::get('/admin/create-product', 'AdminController@create')->name('create-prod
 Route::post('/admin/product', 'AdminController@store')->name('addproduct');
 Route::get('/admin/product/{id}/edit', 'AdminController@edit')->name('edit-product');
 Route::put('/admin/product/{id}', 'AdminController@update')->name('update-product');
+Route::get('/admin/searchproduct','AdminController@search')->name('search-product');
 
 });
 Route::group(['namespace'=>'category'],function(){
@@ -59,6 +59,7 @@ Route::get('/admin/create-users', 'UserController@create')->name('create-user');
 Route::post('/admin/user', 'UserController@store')->name('adduser');
 Route::get('/admin/user/{id}/edit', 'UserController@edit')->name('edit-user');
 Route::put('/admin/user/{id}', 'UserController@update')->name('update-user');
+Route::get('/admin/search-user','UserController@search')->name('search-user');
 });
 
 Route::group(['namespace'=>'role'], function(){
@@ -91,8 +92,9 @@ Route::get('/admin/order','OrderController@index')->name('index-order');
 Route::get('/admin/order/{id}','OrderController@destroy')->name('delete-order');
 Route::get('/admin/create-order', 'OrderController@create')->name('create-order');
 Route::post('/admin/order', 'OrderController@store')->name('addorder');
-Route::get('/admin/order/{id}/edit', 'OrderController@edit')->name('edit-order');
+Route::get('/admin/order/{id}/detail', 'OrderController@detail')->name('detail-order');
 Route::put('/admin/order/{id}', 'OrderController@update')->name('update-order');
+Route::get('/admin/search-order','OrderController@search')->name('search-order');
 
 
 
@@ -146,4 +148,7 @@ route::group(['namespace' => 'Auth'], function(){
 });
 
 
+
+
+Auth::routes();
 

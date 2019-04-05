@@ -9,11 +9,10 @@
       </div><br>
   @endif
   <div class="form-inline" style="margin-top: 40px;margin-left: 800px;margin-bottom: -20px">
-         <form class="search-form" method="get" action="{{route('search-order')}}">
-             @csrf
-                <input class="form-control mr-sm-2" type="text" placeholder="Search ..."  name='key' id='key'>
-                <button class="search" type="submit"><i class="fa fa-search" style="width: 20px;height: 20px"></i></button>
-          </form>
+                            <form class="search-form" method="post">
+                                <input class="form-control mr-sm-2" type="text" placeholder="Search ..." aria-label="Search">
+                                <button class="search-close" type="submit"><i class="fa fa-search" style="width: 20px;height: 20px"></i></button>
+                            </form>
                         </div>
     <div class="loc" >                    
         <select name="statusID" id="statusID">
@@ -66,25 +65,6 @@
         @endforeach
       </tbody>
     </table>
-      <div class="pagina" >
-                  <ul class="pagination" style="margin-left: 500px">
-                      @if($order->currentPage()!=1)
-                          <li><a href="{!!str_replace('/?','?',$order->url($order->lastPage()-1))!!}" style="font-size:120%">&laquo;</a></li>
-                      @endif
-                         @for($i=1;$i<=$order->lastPage();$i=$i+1)
-                            <li><a href="{!!str_replace('/?','?',$order->url($i))!!}" style="font-size:120%" >{!!$i!!}|</a></li>
-                         @endfor
-                    @if($order->currentPage() !=$order->lastPage())
-                          <li><a href="{!!str_replace('/?','?',$order->url($order->lastPage()+1))!!}" style="font-size:120%">&raquo;</a></li>
-                    @endif
-                </ul>
-             </div>
-  <script >
-   $(document).ready(function() {
- alert('vuong');
-   } );
 
-  
-  </script>
    
 @endsection

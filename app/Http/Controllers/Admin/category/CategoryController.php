@@ -14,6 +14,7 @@ class CategoryController extends Controller
     public function index()
     {
         $category=Category::all();
+        Category::orderBy('id','DESC');
         return view('admin.category.index',compact('category'));
     }
 
@@ -82,9 +83,9 @@ class CategoryController extends Controller
         $category = Category::find($id);
         $data= $request->all();
         $category->update($data);
-        return redirect()->route('index-category')->with('status','sửa thành công');
+        return redirect()->route('index-category')->with('status','sửa Category thành công');
     }catch(Exception $e){
-        return redirect()->route('index-category')->with('status','sửa tthất bại');
+        return redirect()->route('index-category')->with('status','sửa category tthất bại');
     }
 }
 
@@ -96,16 +97,10 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-         $products=Category::find($id);
-        if ($products!=null) {
-        	# code...
-      
-        $products->delete();
-        //cach 2 
-        // $products::destroy($id);
+         $Category=Category::find($id);
+         $Category->products()->delete();
+         $Category->delete();   
         return redirect()->route('index-category')->with('status','xóa thành công');
-    }
-    return redirect()->route('index-category')->with('status','xóa thất bại');
     }
     //
 }

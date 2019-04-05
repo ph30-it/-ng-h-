@@ -29,7 +29,7 @@
 			                    		@foreach($products as $item)
 			                    		<li>
 			                    			<figure>
-			                    				<a class="aa-product-img" href="{{route('product-detail',$item['id'])}}"><img src="{{$item['images'][0]['path']}}" alt="polo shirt img"></a>
+			                    				<a class="aa-product-img" href="{{route('product-detail',$item['id'])}}"><img src="{{asset($item['images'][0]['path'])}}" alt="polo shirt img" style="width:230px;height: 300px"></a>
 			                    				<a class="aa-add-card-btn"href="{{ route('add-cart', $item['id']) }}"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
 			                    				<figcaption>
 			                    					<h4 class="aa-product-title"><a href="{{route('product-detail',$item['id'])}}">{{ $item['name'] }}</a></h4>
@@ -172,7 +172,7 @@
 		                  		@foreach($newproduct as $item)
 	                    		<li>
 	                    			<figure>
-	                    				<a class="aa-product-img" href="{{route('product-detail',$item['id'])}}"><img src="{{$item['images'][0]['path']}}" alt="polo shirt img"></a>
+	                    				<a class="aa-product-img" href="{{route('product-detail',$item['id'])}}"><img src="{{asset($item['images'][0]['path'])}}" alt="polo shirt img" style="width: 230px;height: 300px"></a>
 	                    				<a class="aa-add-card-btn"href="{{ route('add-cart', $item['id']) }}"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
 	                    				<figcaption>
 	                    					<h4 class="aa-product-title"><a href="{{route('product-detail',$item['id'])}}">{{ $item['name'] }}</a></h4>

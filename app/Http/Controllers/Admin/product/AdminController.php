@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\product;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Request\StoreproductValidation;
 use App\Product;
 use App\Category;
 use App\Image;
@@ -18,8 +19,9 @@ class AdminController extends Controller
      */
    public function index(){
 
-   	$products =Product::paginate(5);
+   	 $products =Product::paginate(5);
      $category=Category::pluck('name','id');
+     product::orderBy('name','DESC');
    	return view('admin.product.home',compact('products','category'));
    }
     /**
@@ -31,6 +33,10 @@ class AdminController extends Controller
 
 
         $products=Product::find($id);
+        $products->comments()->delete();
+        $products->images()->delete();
+        $products->order_details()->delete();
+        $products->delete();
         if ($products!=null) {
         	# code...
       
@@ -58,12 +64,16 @@ class AdminController extends Controller
      * @return \Illuminate\Http\Response
      */
      public function store(Request $request)
-    {
-         try{
-
+    { 
+        $this->validate($request,[
+            'name'=>'required',
+            'price'=>'required',
+            'quantity'=>'required',
+            'path'=>'required',
+        ]);
+         try{   
         $data= $request->except('path');
         $product = Product::create($data);
-      
        if ($request->hasFile('path')) {
                $name_image = $request->path->getClientOriginalName();
                 $newName = '/images/admin/'.md5(microtime(true)).$name_image;
@@ -93,8 +103,8 @@ class AdminController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function showproduct($id)
-    {
-       $products = Product::with('images')->where('id', $id)->get();
+    {   
+       $products = Product::with('images')->where('id',$id)->get();
         $category= Category::pluck('name', 'id');
         return view('admin.product.show', compact('products', 'category'));
     }
@@ -134,6 +144,11 @@ class AdminController extends Controller
 
             }
       
+    }
+
+    public function search(Request $request){
+     $products=Product::where('name','like','%'.$request->key.'%')->orWhere('price',$request->key)->get();
+     return view('admin.product.search',compact('products'));
     }
    
 }

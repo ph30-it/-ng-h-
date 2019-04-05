@@ -29,7 +29,6 @@
 
     <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
-    <script type="text/javascript" src="jquery-3.3.1.min"></script> 
 
    <style>
     #weatherWidget .currentDesc {
@@ -96,13 +95,12 @@
                     </li>
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Tables</a>
-                        <ul class="sub-menu children dropdown-menu">
-                             <li><i class="fa fa-table"></i><a href="{{Route('index-user')}}">User</a></li>
-                            <li><i class="fa fa-table"></i><a href="{{Route('index-product')}}">Product </a></li>
-                            <li><i class="fa fa-table"></i><a href="{{Route('index-order')}}">Oder</a></li>
-                            <li><i class="fa fa-table"></i><a href="{{Route('index-image')}}">Image </a></li>
-                            <li><i class="fa fa-table"></i><a href="{{Route('index-category')}}">Category </a></li>
-                              <li><i class="fa fa-table"></i><a href="{{Route('index-comment')}}">Comment </a></li>
+                         <ul class="sub-menu children dropdown-menu">
+                             <li><i class="fa fa-table"></i><a href="{{Route('index-user')}}">Quản lý user</a></li>
+                            <li><i class="fa fa-table"></i><a href="{{Route('index-product')}}">Quản lý sản phẩm </a></li>
+                            <li><i class="fa fa-table"></i><a href="{{Route('index-order')}}">Quản lý đặt hàng</a></li>
+                            <li><i class="fa fa-table"></i><a href="{{Route('index-category')}}">Quản lý Category </a></li>
+                              <li><i class="fa fa-table"></i><a href="{{Route('index-comment')}}">Quản lý bình luận</a></li>
                            
                         </ul>
                     </li>
@@ -203,8 +201,8 @@
 
    @yield('javascript')
 
-
-     <script type="text/javascript" src="jquery-3.3.1.min"></script> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{{asset('js/admin/jquery-3.3.1.min')}}"></script> 
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>

@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Product;
+use App\Category;
+use App\Comment;
 
 class HomeController extends Controller
 {
@@ -15,7 +18,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        
+         $product = Product::count('id');
+        $category = Category::count('id');
+        $user = User::count('id');
+        $comment = Comment::count('id');
+        return view('admin.home',compact('product','category','user','comment'));
     }    
 
     /**

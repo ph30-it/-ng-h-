@@ -1,20 +1,23 @@
 @extends('admin.layout.master')
 @section('content') 
-<h3 style="text-align: center;"><b>Comment Table</b></h3> <br>  
-  @if(session('status'))
-            <div style=";color:black;background: #00CC66;height: 50px;margin-bottom: -25px ">
-                   <p style="color: white;text-align: center;"> {{session('status')}}</p>
-            </div><br>
-  @endif
-    <table class="table table-hover">
+<div style="background: #66CC33;height: 40px">
+      <h3 style="text-align: center;color:white " ><i>Chào mừng bạn tới trang quản lý Comment </i></h3> <br>  
+          </div>
+                  @if(session('status'))
+                 <div style="background: #66CC33;height: 50px;margin-bottom: -25px ">
+                  <p style="text-align: center;color: white"><b>{{session('status')}}</b></p>
+                 </div><br>
+             @endif 
+    <table class="table table-hover" style="margin-top: 50px">
       <thead>
         <tr  style="background:#666666 ;color:white">
           <th style="text-align: center; ">ID</th>
-          <th style="text-align: center;">Title</th>
-          <th style="text-align: center; ">Content</th>
-          <th style="text-align: center;">product</th>
-          <th style="text-align: center;">User</th>
-          <th style="text-align: center;">created_at</th>
+          <th style="text-align: center;width: 100px">Tiêu đề</th>
+          <th style="text-align: center; ">Nội dung</th>
+          <th style="text-align: center;width: 100px ">Đánh giá</th>
+          <th style="text-align: center;">Sản phẩm</th>
+          <th style="text-align: center;width: 170px">Tên khách hàng</th>
+          <th style="text-align: center;">Thời gian</th>
           <th style="text-align: center;">Action</th>
           <th style="text-align: center;"></th>
 
@@ -34,6 +37,7 @@
                 <td style="text-align: center;">
                      {{$item->content}}
                             </td>
+                    <td style="text-align: center;"><b>{{$item->rate}}</b></td>
                        <td style="text-align: center;"><b>{{$products->name}}</b></td>
                           <td style="text-align: center;"><b>{{$user->name}}</b></td>
                              <td style="text-align: center;">{{$item->created_at}}</td>

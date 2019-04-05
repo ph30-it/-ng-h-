@@ -13,16 +13,14 @@
     <table class="table table-hover" style="border: 1px solid black">
       <thead>
         <tr style="background: #999999;" >
-          <th >ID</th>
-          <th style="text-align: center;border-left: 1px solid black ">Name</th>
-          <th style="text-align: center;border-left: 1px solid black ">Price</th>
-          <th style="text-align: center;border-left: 1px solid black ">PriceSale</th>
-          <th style="text-align: center;border-left: 1px solid black; ">Quantity</th>
-          <th style="text-align: center;border-left: 1px solid black ">description</th>
-          <th style="text-align: center;border-left: 1px solid black ">Category</th>
-          <th style="text-align: center;border-left: 1px solid black">Imane</th> 
-          <th style="text-align: center;border-left: 1px solid black" >Action</th>
-          <th ></th>
+  
+          <th style="text-align: center;border-left: 1px solid black;width: 150px;border-bottom: 1px solid black ">Tên sản phẩm</th>
+          <th style="text-align: center;border-left: 1px solid black ;border-bottom: 1px solid black;width:150px ">Tiêu đề</th>
+          <th style="text-align: center;border-left: 1px solid black;border-bottom: 1px solid black ">Mô tả</th>
+          <th style="text-align: center;border-left: 1px solid black;border-bottom: 1px solid black;width: 120px ">Hãng</th>
+          <th style="text-align: center;border-left: 1px solid black;border-bottom: 1px solid black;width:150px ">Ảnh sản phẩm</th> 
+          <th style="text-align: center;border-left: 1px solid black;border-bottom: 1px solid black;width: 100px" >Thao tác</th>
+          <th style="border-bottom: 1px solid black"></th>
 
 
         </tr>
@@ -34,14 +32,11 @@
             $category = App\Category::where('id',$item->category_id)->first();
          ?> 
         <tr>
-          <td style="text-align: center;border-left: 1px solid black">{{$item->id}}</td>
           <td style="text-align: center;border-left: 1px solid black">{{$item->name}}</td>
-          <td style="text-align: center;border-left: 1px solid black">{{$item->price}}đ</td>
-          <td style="text-align: center;border-left: 1px solid black">{{$item->priceSale}}đ</td>
-          <td style="text-align: center;border-left: 1px solid black">{{$item->quantity}}</td>
          <td style="text-align: center;border-left: 1px solid black">{{$item->description}}</td> 
+          <td style="text-align: center;border-left: 1px solid black">{{$item->long_description}}</td> 
           <td style="text-align: center;border-left: 1px solid black">{{$category->name}}</td>
-          <td style="text-align: center;border-left: 1px solid black"><img src="{{asset($img->path)}}" style="width:900px"></td>
+          <td style="text-align: center;border-left: 1px solid black"><img src="{{asset($img->path)}}" style="width:100px"></td>
           
           <td style="text-align: center;border-left: 1px solid black"><a href="{{route('edit-product',$item->id)}} " class="btn btn-primary" ><i class='fas fa-edit'></i></a> </td> 
            <td style="text-align: center;"> <form action="{{ route('delete-product',$item->id)}}" method="">
