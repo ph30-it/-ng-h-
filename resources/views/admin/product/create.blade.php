@@ -16,7 +16,7 @@
 	   {{csrf_field()}}
 	   @if($errors)
 	  <div class="form-group {{$errors->has('name')?'has-error':''}}" >
-	     <label for="name">Tên sản phẩm :</label>
+	     <label for="name">Tên sản phẩm<span style="color: red">*</span>:</label>
 	          <input type="text" class="form-control" id="name[]" name="name" placeholder="Tên sản phẩm" value="{{old('name')}}" >
 	          @if($errors->has('name'))
 	             <span style="color: red">*Bạn vui lòng nhập tên sản phẩm</span>
@@ -26,7 +26,7 @@
 	   <div class="row">
 	   	  <div class="cl-md-6">
 	        <div class="form-group {{$errors->has('price')?'has-error':''}}">
-	          <label for="price" style="margin-left: 80px">Giá:</label>
+	          <label for="price" style="margin-left: 80px">Giá<span style="color: red">*</span>:</label>
 	               <input type="text" class="form-control" id="price" name="price" style="width: 180px;margin-left: 10px" value="{{old('price')}}" >
 	                @if($errors->has('price'))
 	                  <span style="color: red;margin-left: 20px">*Giá sản phẩm trống</span>
@@ -42,7 +42,7 @@
 	      </div>
 	  </div>
 	  <div class="form-group {{$errors->has('quantity')?'has-error':''}}">
-	           <label for="quantity">Số lượng:</label>
+	           <label for="quantity">Số lượng<span style="color: red">*</span>:</label>
 	                 <input type="number" class="form-control" id="quantity" name="quantity" style="width: 90px" >
 	                 @if($errors->has('quantity'))
 	                  <span style="color: red">*Số lượng sản phẩm trống</span>
@@ -59,7 +59,7 @@
 	                 @endif
 	  </div>
 	  <div class="form-group {{$errors->has('description')?'has-error':''}}">
-	             <label for="description">Mô tả:</label><br>
+	             <label for="description">Mô tả<span style="color: red">*</span>:</label><br>
 	                    <textarea name="long_description" rows="6" cols="44" style="height: 70px" value="{{old('long_description')}}" ></textarea>
 	                 @if($errors->has('description'))
 	                  <span >Bạn vui long nhập đánh giá </span>
@@ -67,7 +67,7 @@
 	                 @endif
 	  </div>
 	   <div class="form-group {{$errors->has('path')?'has-error':''}}">
-	           <label for="path">Ảnh sản phẩm:</label>
+	           <label for="path">Ảnh sản phẩm<span style="color: red">*</span>:</label>
 	                  <input type="file" class="form-control" id="path" name="path">
 	                   @if($errors->has('path'))
 	                  <span style="color: red"> *Bạn vui lòng chọn ảnh sản phẩm</span>
