@@ -65,7 +65,7 @@ class ProductController extends Controller
         //
         $product = Product::with('images')->find($id)->toArray();
         $category = Category::with('products')->Where('id', $product['category_id'])->get()->toArray();
-        $relatedproduct = Product::with('images')->where('category_id',$category[0]['id'])->get()->toArray();
+        $relatedproduct = Product::with('images')->where('category_id',$category[0]['id'])->limit(8)->get()->toArray();
         $comments = Comment::where('product_id',$id)->get();
         //dd($comments);
         return view('home.products.product-detail', compact('product', 'category','relatedproduct','comments'));

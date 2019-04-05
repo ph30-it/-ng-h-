@@ -56,6 +56,11 @@
                               <img src="{{ asset($product['images'][4]['path']) }}" width="45" height="55">
                             </a>
                           @endif
+                          @if(isset($product['images'][5]['path']))
+                            <a data-big-image="{{ asset($product['images'][5]['path']) }}" data-lens-image="{{ asset($product['images'][5]['path']) }}" class="simpleLens-thumbnail-wrapper" href="#">
+                              <img src="{{ asset($product['images'][5]['path']) }}" width="45" height="55">
+                            </a>
+                          @endif
                       </div>
                     </div>
                   </div>
@@ -90,7 +95,7 @@
 
               <!-- Tab panes -->
               <div class="tab-content">
-                <div class="tab-pane fade in active" id="description">
+                <div class="tab-pane fade in active" id="description"><br>
                   <p>{{ $product['long_description'] }}.</p>
                 </div>
                 <div class="tab-pane fade " id="review">
@@ -102,7 +107,7 @@
                         <div class="media">
                           <div class="media-left">
                             <a href="#">
-                              <img class="media-object" src="img/testimonial-img-3.jpg" alt="girl image">
+                              <img class="media-object" src="{{ asset('images/avata.png') }}" alt="girl image" width="70" height="70">
                             </a>
                           </div>
                           <div class="media-body">
