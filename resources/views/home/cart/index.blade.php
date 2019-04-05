@@ -42,22 +42,49 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach($content as $item)
-                      <tr>
-                        <td><a class="remove" href="{{ route('delete-product-cart',$item['id']) }}"><fa class="fa fa-close"></fa></a></td>
-                        <td><a href="#"><img src="{{ asset($item->attributes->image) }}" alt="img"></a></td>
-                        <td><a class="aa-cart-title" href="#">{{ $item['name'] }}</a></td>
-                        <td>{{ number_format($item['price']).'₫' }}</td>
-                        <td>
-                          <div class="cart_quantity_button">
-                            <a class="cart_quantity_up" href="{{ route('reduce-products',$item['id']) }}"> - </a>
-                            <input class="cart_quantity_input" type="text" name="quantity" value="{{ $item['quantity'] }}" autocomplete="off" size="2">
-                            <a class="cart_quantity_down" href="{{ route('increase-products', $item['id']) }}"> + </a>
-                          </div>
-                        </td>
-                        <td>{{ number_format($item['price']*$item['quantity']).'₫' }}</td>
-                      </tr>
-                      @endforeach
+                      <form action="" method="POST">
+                        @csrf
+                        @foreach($content as $item)
+                        <tr>
+                          <td>
+                            <a class="remove" href="{{ route('delete-product-cart',$item['id']) }}"><fa class="fa fa-close"></fa></a>
+                            <a href="" class="updateCart" id="{{ $item['id'] }}"><span class="glyphicon glyphicon-refresh"></span></a>
+                          </td>
+                          <td><a href="#"><img src="{{ asset($item->attributes->image) }}" alt="img"></a></td>
+                          <td><a class="aa-cart-title" href="#">{{ $item['name'] }}</a></td>
+                          <td>{{ number_format($item['price']).'₫' }}</td>
+                          <td>
+                            <div class="cart_quantity_button">
+                              <a class="cart_quantity_up" href="{{ route('reduce-products',$item['id']) }}"> - </a>
+                              <input class="quantity cart_quantity_input" type="text" name="quantity" value="{{ $item['quantity'] }}" autocomplete="off" size="2" >
+                              <a class="cart_quantity_down" href="{{ route('increase-products', $item['id']) }}"> + </a>
+                            </div>
+                          </td>
+                          <td>{{ number_format($item['price']*$item['quantity']).'₫' }}</td>
+                        </tr>
+                        @endforeach
+                      </form>
+                      
+                      <script type="text/javascript">
+                        $(document).ready(function(){
+                          $(".updateCart").click(function(){
+                            var id = $(this).attr('id');
+                            var quantity = $(this).parent().parent().find(".quantity").val();
+                            var token = $("input[name = '_token']").val();
+                            $.ajax({
+                              url: '/updatecart/'+id+'/'+quantity,
+                              type: 'GET',
+                              cache: false,
+                              data: {"_token":token, "id":id, "quantity":quantity},
+                              success:function(data){
+                                if(data){
+                                  window.location = "cart-index"
+                                }
+                              }
+                            });
+                          });
+                        });
+                      </script>
                       
                       </tbody>
                   </table>

@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title')QV_Watch|Product-Detail
+@section('title')QV_Watch|Account
 @stop
 
 @section('content')

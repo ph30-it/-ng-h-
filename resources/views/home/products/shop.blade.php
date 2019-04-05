@@ -27,7 +27,7 @@
       <div class="row">
         <div class="col-lg-9 col-md-9 col-sm-8 col-md-push-3">
           <div class="aa-product-catg-content">
-            <div class="aa-product-catg-head">
+            <div class="aa-product-catg-head"><!-- 
               <div class="aa-product-catg-head-left">
                 <form action="" class="aa-sort-form">
                   <label for="">Sort by</label>
@@ -38,15 +38,7 @@
                     <option value="4">Date</option>
                   </select>
                 </form>
-                <form action="" class="aa-show-form">
-                  <label for="">Show</label>
-                  <select name="">
-                    <option value="1" selected="12">12</option>
-                    <option value="2">24</option>
-                    <option value="3">36</option>
-                  </select>
-                </form>
-              </div>
+              </div> -->
               <div class="aa-product-catg-head-right">
                 <a id="grid-catg" href="#"><span class="fa fa-th"></span></a>
                 <a id="list-catg" href="#"><span class="fa fa-list"></span></a>
@@ -61,8 +53,9 @@
                     <a class="aa-product-img" href="{{route('product-detail',$item['id'])}}"><img src="{{$item['images'][0]['path']}}" alt="polo shirt img"></a>
                     <a class="aa-add-card-btn"href="{{ route('add-cart', $item['id']) }}"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                     <figcaption>
-                      <h4 class="aa-product-title"><a href="{{route('product-detail',$item['id'])}}">{{ $item['name'] }}</a></h4>
+                      <h4 class="aa-product-title"><a href="{{route('product-detail',$item['id'])}}">{{ $item['description'] }}</a></h4>
                       <span class="aa-product-price">{{ number_format($item['price']-($item['price']*$item['priceSale']/100)).'₫' }}</span><span class="aa-product-price"><del>{{ number_format($item['price']).'₫' }}</del></span>
+                      <p class="aa-product-descrip">{{ $item['long_description'] }}.</p>
                     </figcaption>
                   </figure>                        
                   <div class="aa-product-hvr-content">
@@ -133,24 +126,7 @@
                               <p class="aa-product-avilability">Avilability: <span>In stock</span></p>
                             </div>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis animi, veritatis quae repudiandae quod nulla porro quidem, itaque quis quaerat!</p>
-                            <h4>Size</h4>
-                            <div class="aa-prod-view-size">
-                              <a href="#">S</a>
-                              <a href="#">M</a>
-                              <a href="#">L</a>
-                              <a href="#">XL</a>
-                            </div>
                             <div class="aa-prod-quantity">
-                              <form action="">
-                                <select name="" id="">
-                                  <option value="0" selected="1">1</option>
-                                  <option value="1">2</option>
-                                  <option value="2">3</option>
-                                  <option value="3">4</option>
-                                  <option value="4">5</option>
-                                  <option value="5">6</option>
-                                </select>
-                              </form>
                               <p class="aa-prod-category">
                                 Category: <a href="#">Polo T-Shirt</a>
                               </p>
@@ -191,27 +167,18 @@
               <h3>Top Rated Products</h3>
               <div class="aa-recently-views">
                 <ul>
+                  @foreach($toprate as $top)
+                  <?php $query = App\Product::where('id',$top->product_id)->get(); ?>
+                  @foreach($query as $item)
                   <li>
-                    <a href="#" class="aa-cartbox-img"><img alt="img" src="img/woman-small-2.jpg"></a>
+                    <a href="{{route('product-detail',$item['id'])}}" class="aa-cartbox-img"><img alt="img" src="{{asset($item['images'][0]['path'])}}"></a>
                     <div class="aa-cartbox-info">
-                      <h4><a href="#">Product Name</a></h4>
-                      <p>1 x $250</p>
+                      <h4><a href="{{route('product-detail',$item['id'])}}">{{ $item['name'] }}</a></h4>
+                      <p>1 x {{ number_format($item['price']-($item['price']*$item['priceSale']/100)).'₫' }}</p>
                     </div>                    
                   </li>
-                  <li>
-                    <a href="#" class="aa-cartbox-img"><img alt="img" src="img/woman-small-1.jpg"></a>
-                    <div class="aa-cartbox-info">
-                      <h4><a href="#">Product Name</a></h4>
-                      <p>1 x $250</p>
-                    </div>                    
-                  </li>
-                   <li>
-                    <a href="#" class="aa-cartbox-img"><img alt="img" src="img/woman-small-2.jpg"></a>
-                    <div class="aa-cartbox-info">
-                      <h4><a href="#">Product Name</a></h4>
-                      <p>1 x $250</p>
-                    </div>                    
-                  </li>                                      
+                  @endforeach
+                  @endforeach                                     
                 </ul>
               </div>                            
             </div>

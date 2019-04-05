@@ -42,6 +42,16 @@ class CartController extends Controller
         return redirect()->route('cart-index');
     }
 
+    public function updatecart(Request $request)
+   {
+        if(Request::ajax()){
+            $id = Request::get('id');
+            $qty = Request::get('quantity');
+            Cart::update($id,$qty);
+        }
+        
+   }
+
     /**
      * Show the form for creating a new resource.
      *

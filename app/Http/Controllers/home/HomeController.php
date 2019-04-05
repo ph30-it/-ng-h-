@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Category;
 use App\Product;
 use App\Image;
+use DB;
 
 class HomeController extends Controller
 {
@@ -22,7 +23,7 @@ class HomeController extends Controller
 
     public function search(Request $request)
      {
-       $search = $request->get('search');
+       $search = $request->get('search_product');
             if($search != ''){
                 $products = Product::with('category')->where('id', 'like', '%'.$search.'%')
                         ->orWhere('name', 'like', '%'.$search.'%')
@@ -34,6 +35,48 @@ class HomeController extends Controller
               return redirect()->back();
             }
      }
+
+    /*public function show($id)
+    {
+        $products = Product::findOrFail($id);
+
+        $data = 'Name: ' . $products->name 
+            . '<br/>Price: ' . $products->price;
+
+        return $data;
+    }*/
+    function getSearchAjax(Request $request)
+    {
+        if($request->get('query'))
+        {
+            $query = $request->get('query');
+            $data = Product::where('name', 'LIKE', "%{$query}%")->orWhere('price', 'LIKE', "%{$query}%")->get();
+            $output = '<ul class="dropdown-menu" style="display:block; position:relative">';
+            foreach($data as $row)
+            {  
+                    $output .= '
+               <li><a href="'.route('product-detail',$row->id).'">'.$row->name.'</a></li>
+               '; 
+           }
+           $output .= '</ul>';
+           echo $output;
+       }
+    }
+
+    /* public function searchByName(Request $request)
+    {
+        $products = Product::where('name', 'like', '%' . $request->value . '%')->get();
+        dd($products);
+        return response()->json($products); 
+    }
+
+    public function searchByPrice(Request $request)
+    {
+        $products = Product::where('price', 'like', '%' . $request->value . '%')->get();
+
+        return response()->json($products); 
+    }*/
+
     /**
      * Show the form for creating a new resource.
      *
@@ -62,10 +105,6 @@ class HomeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.

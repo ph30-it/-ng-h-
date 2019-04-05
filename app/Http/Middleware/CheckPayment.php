@@ -4,7 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Auth;
-class CheckRole
+
+class CheckPayment
 {
     /**
      * Handle an incoming request.
@@ -15,15 +16,8 @@ class CheckRole
      */
     public function handle($request, Closure $next)
     {
-
         if (Auth::guest()) {
-            return redirect()->intended('account')->with('status','Bạn phải đăng nhập tài khoản admin mới được quyền vào chức năng Admin!');
-        }
-        if (Auth::check()) {
-
-            if ((Auth::user()->role_id == 1)) {
-               return redirect()->intended('/');
-            }          
+            return redirect()->intended('account')->with('status','Bạn phải đăng nhập mới được sử dụng chức năng Checkout!');
         }
         return $next($request);
     }

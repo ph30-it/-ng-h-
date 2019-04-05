@@ -68,7 +68,7 @@
                       <div class="row">
                         <div class="col-md-12">
                           <div class="aa-checkout-single-bill">
-                            <textarea cols="8" rows="3" name="note">Note</textarea>
+                            <textarea cols="8" rows="3" name="note" placeholder="Note"></textarea>
                           </div>                             
                         </div>                            
                       </div>   

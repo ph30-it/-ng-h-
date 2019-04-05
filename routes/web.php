@@ -12,10 +12,8 @@
 */
 
 
-Route::group(['namespace'=>'Admin'],function(){
-Route::get('/admin', function () {
-    return view('admin.home');
-});
+Route::group(['namespace'=>'Admin', 'middleware'=>'CheckRole'],function(){
+	Route::get('/admin', 'HomeController@index')->name('admin') ;
 
 	Route::group(['namespace'=>'product'],function(){
 
@@ -102,15 +100,14 @@ Route::put('/admin/order/{id}', 'OrderController@update')->name('update-order');
 	
 });
 
-
-route::get('/quick',function(){
-	return view('home.products.quick-view');
-});
-
 route::group(['namespace' => 'home'], function(){
 
 	Route::get('/', 'HomeController@index')->name('home');
-	Route::get('/search','HomeController@search')->name('search');
+	Route::post('/search-product','HomeController@search')->name('search-product');
+	/*Route::get('/products/{id}', 'HomeController@show');*/
+	/*Route::get('/search/name', 'HomeController@searchByName');
+	Route::get('/search/price', 'HomeController@searchByPrice');*/
+	Route::get('search/name', 'HomeController@getSearchAjax')->name('search');
 	Route::get('/wishlist', 'WishlistController@index')->name('wishlist');
 	Route::get('/contact', 'ContactController@index')->name('contact');
 	Route::post('/send-email', 'ContactController@senmai')->name('send-email');
@@ -134,8 +131,9 @@ route::group(['namespace' => 'home'], function(){
 		Route::get('/cart/{id}/delete-product-cart','CartController@destroy')->name('delete-product-cart');
 		Route::get('/cart/{id}/increase-products','CartController@increase')->name('increase-products');
 		Route::get('/cart/{id}/reduce-products','CartController@reduction')->name('reduce-products');
+		Route::get('/updatecart/{id}/{quantity}','CartController@updatecart')->name('updatecart');
 
-		Route::get('/checkout', 'OrderController@index')->name('checkout');
+		Route::get('/checkout', 'OrderController@index')->name('checkout')->middleware('CheckPayment');
 		Route::post('payment','OrderController@postpayment')->name('postpayment');
 	});
 		
@@ -145,5 +143,4 @@ route::group(['namespace' => 'Auth'], function(){
 	Route::get('/account', 'LoginController@index')->name('account');
 });
 
-
-
+Auth::routes();

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -15,9 +16,22 @@ class HomeController extends Controller
      */
     public function index()
     {
-        
-    }    
-
+        /*if(Auth::check())
+        { 
+            if(Auth::user()->role_id == 2)
+            {
+                return view('admin.home');
+            }else
+            {
+                Auth::logout();
+                return redirect()->intended('account')->with('status','Bạn phải đăng nhập bằng tài khoản Admin mới được sử dụng chức năng Admin!');
+            }
+            
+        }else{
+            return redirect()->intended('account')->with('status','Bạn phải đăng nhập bằng tài khoản Admin mới được sử dụng chức năng Admin!');
+        }*/
+        return view('admin.home');
+    }   
     /**
      * Show the form for creating a new resource.
      *

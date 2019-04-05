@@ -21,14 +21,12 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
-        $a = Auth::user()->email;
-        if(Auth::check()){
+        /*if(Auth::check()){
             return view('home.cart.checkout');
         }else{
             return redirect()->intended('account')->with('status','Bạn phải đăng nhập mới được sử dụng chức năng Order!');
-        }
-
+        }*/
+        return view('home.cart.checkout');
     }
 
     public function postpayment(PaymentRequest $request)

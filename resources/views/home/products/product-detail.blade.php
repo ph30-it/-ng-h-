@@ -51,6 +51,11 @@
                               <img src="{{ asset($product['images'][3]['path']) }}" width="45" height="55">
                             </a>
                           @endif
+                          @if(isset($product['images'][4]['path']))
+                            <a data-big-image="{{ asset($product['images'][4]['path']) }}" data-lens-image="{{ asset($product['images'][4]['path']) }}" class="simpleLens-thumbnail-wrapper" href="#">
+                              <img src="{{ asset($product['images'][4]['path']) }}" width="45" height="55">
+                            </a>
+                          @endif
                       </div>
                     </div>
                   </div>
@@ -101,8 +106,10 @@
                             </a>
                           </div>
                           <div class="media-body">
-                            <h4 class="media-heading"><strong>{{ $comment->name }} - {{ $comment->email }}</strong> - <span>({{ $comment->created_at }})</span></h4>
+                            <h4 class="media-heading"><strong>{{ $comment->name }} - {{ $comment->email }}</strong> - <span>({{ $comment->created_at->format('H:i d-m-Y') }})</span></h4>
+                            @if($comment->rate != null)
                             <input id="input-1" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-show-caption="false" data-step="0.1" value="{{ $comment->rate }}" data-size="s" disabled="">
+                            @endif
                             <p>{{ $comment->content }}</p>
                           </div>
                         </div>
