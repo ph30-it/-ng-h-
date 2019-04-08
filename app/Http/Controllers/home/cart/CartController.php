@@ -29,6 +29,12 @@ class CartController extends Controller
         $content = Cart::getcontent();
         //dd($content);
         $total = Cart::gettotal();
+        if(Cart::getTotalQuantity() == 0)
+        {
+            echo "<script>alert('Chưa có sản phẩm trong giỏ hàng. Vui lòng chọn sản phẩm!')
+            window.location ='".url('/')."';
+            </script>";
+        }
         return view('home.cart.index', compact('content', 'total'));
     }
     //tang sl san pham

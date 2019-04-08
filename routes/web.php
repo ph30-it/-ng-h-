@@ -106,7 +106,7 @@ Route::get('/admin/search-order','OrderController@search')->name('search-order')
 route::group(['namespace' => 'home'], function(){
 
 	Route::get('/', 'HomeController@index')->name('home');
-	Route::post('/search-product','HomeController@search')->name('search-product');
+	Route::get('/search-product','HomeController@search')->name('search-product');
 	/*Route::get('/products/{id}', 'HomeController@show');*/
 	/*Route::get('/search/name', 'HomeController@searchByName');
 	Route::get('/search/price', 'HomeController@searchByPrice');*/

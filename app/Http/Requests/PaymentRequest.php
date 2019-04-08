@@ -32,11 +32,11 @@ class PaymentRequest extends FormRequest
     public function messages()
     {
         return [
-          'name.required'   => 'Vui lòng nhập họ tên',
+          'name.required'   => 'Vui lòng nhập tên người nhận',
           'name.min'   => 'Họ tên lớn hơn 3 ký tự.',
           'phone.required'=>'Vui lòng nhập số điện thoại',
           'phone.min'=>'Số điện thoại không nhỏ hơn 9',
-          'address.required'  => 'Vui lòng nhập email',
+          'address.required'  => 'Vui lòng nhập địa chỉ',
           'address.min'=>'Địa chỉ không nhỏ hơn 5 ký tự',
       
         ];
