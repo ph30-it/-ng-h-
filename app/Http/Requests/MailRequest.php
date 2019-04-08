@@ -32,12 +32,12 @@ class MailRequest extends FormRequest
     public function messages()
     {
      return [
-           'email.required'  => 'Vui lòng nhập email',
-           'email.email'  => 'Vui lòng nhập đúng email',
-           'name.required'  => 'Vui lòng nhập tên',
-           'name.min'  => 'Tên phải gồm 2 ký tự trở lên',
-           'content.required'  => 'Vui lòng nhập nội dung liên hệ',
-           'content.min'  => 'Nội dung phải trên 10 kí tự',
-              ];
+       'email.required'  => 'Vui lòng nhập email',
+       'email.email'  => 'Vui lòng nhập đúng email',
+       'name.required'  => 'Vui lòng nhập tên',
+       'name.min'  => 'Tên phải gồm 2 ký tự trở lên',
+       'content.required'  => 'Vui lòng nhập nội dung liên hệ',
+       'content.min'  => 'Nội dung phải trên 10 kí tự',
+            ];
     }
 }

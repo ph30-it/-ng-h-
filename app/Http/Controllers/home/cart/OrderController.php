@@ -28,7 +28,7 @@ class OrderController extends Controller
         }*/
         if(Cart::getTotalQuantity() == 0)
         {
-            echo "<script>alert('Vui lòng chọn sản phẩm để thanh toán!')
+            echo "<script>alert('Vui lòng mua hàng để thanh toán!')
             window.location ='".url('/')."';
             </script>";
         }
