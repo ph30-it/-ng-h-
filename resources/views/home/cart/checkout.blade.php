@@ -63,28 +63,28 @@
                        <div class="row">
                         <div class="col-md-12">
                           <div class="aa-checkout-single-bill">
-                            <input type="text" placeholder="Recipient's Name*" name="name">
+                            <input type="text" placeholder="Recipient's Name*" name="name" value="{{ old('name') }}">
                           </div>                             
                         </div>
                       </div> 
                       <div class="row">
                         <div class="col-md-12">
                           <div class="aa-checkout-single-bill">
-                            <input type="text" placeholder="Address*" name="address">
+                            <input type="text" placeholder="Address*" name="address" value="{{ old('address') }}">
                           </div>                             
                         </div>                            
                       </div>  
                       <div class="row">
                         <div class="col-md-6">
                           <div class="aa-checkout-single-bill">
-                            <input type="tel" placeholder="Phone*" name="phone">
+                            <input type="tel" placeholder="Phone*" name="phone" value="{{ old('phone') }}">
                           </div>
                         </div>
                       </div> 
                       <div class="row">
                         <div class="col-md-12">
                           <div class="aa-checkout-single-bill">
-                            <textarea cols="8" rows="3" name="note" placeholder="Note"></textarea>
+                            <textarea cols="8" rows="3" name="note" placeholder="Note" value="{{ old('note') }}"></textarea>
                           </div>                             
                         </div>                            
                       </div>   

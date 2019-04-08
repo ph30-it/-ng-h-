@@ -122,6 +122,15 @@
                       @endforeach
                    </ul>
                    <h4>Add a review</h4>
+                   @if(count($errors) > 0)
+                    <div class="alert alert-danger">
+                      <ul>
+                          @foreach ($errors->all() as $error)
+                              <li>{!! $error !!}</li>
+                          @endforeach
+                      </ul>
+                    </div>
+                    @endif
                    <!-- review form -->
                    <form method="POST" action="{{route('comment')}}" class="aa-review-form">
                     @csrf
@@ -136,21 +145,21 @@
                       </div>
                       @if( Auth::check())
                       <div class="form-group">
-                        <label for="name">Name</label>
+                        <label for="name">Name<span style="color: red;">*</span></label>
                         <input type="text" class="form-control" id="name" placeholder="Name" name="name" value="{{ Auth::user()->name }}">
                       </div>  
                       <div class="form-group">
-                        <label for="email">Email</label>
+                        <label for="email">Email<span style="color: red;">*</span></label>
                         <input type="email" class="form-control" id="email" placeholder="example@gmail.com" name="email" value="{{ Auth::user()->email }}">
                       </div>
                       @else
                       <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" placeholder="Name" name="name" >
+                        <label for="name">Name<span style="color: red;">*</span></label>
+                        <input type="text" class="form-control" id="name" placeholder="Name" name="name" value="{{ old('name') }}" >
                       </div>  
                       <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="example@gmail.com" name="email" >
+                        <label for="email">Email<span style="color: red;">*</span></label>
+                        <input type="email" class="form-control" id="email" placeholder="example@gmail.com" name="email" value="{{ old('email') }}" >
                       </div>
                       @endif
 
