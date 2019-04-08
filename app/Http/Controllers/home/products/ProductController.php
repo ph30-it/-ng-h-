@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\home\products;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\commentRequest;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\Image;
@@ -28,7 +29,7 @@ class ProductController extends Controller
         }
         $newproduct = Product::with('images')->orderBy('id','DESC')->LIMIT(8)->get()->toArray();
         $saleproduct = Product::with('images')->where('priceSale','!=',0)->get()->toArray(); 
-        $toprate = Comment::selectRaw('product_id, sum(rate) as sumrate' )->groupBy('product_id')->take(5)->get();
+        $toprate = Comment::selectRaw('product_id, count(rate) as countrate' )->groupBy('product_id')->orderBy('countrate', 'DESC')->take(5)->get();
         return view('home.products.shop', compact('categories','products','newproduct','saleproduct','toprate'));
     }
     /**
@@ -71,7 +72,7 @@ class ProductController extends Controller
         return view('home.products.product-detail', compact('product', 'category','relatedproduct','comments'));
     }
 
-    public function comment(Request $request)
+    public function comment(commentRequest $request)
     {
         $comment = $request->all();
         $rating = new \willvincent\Rateable\Rating;

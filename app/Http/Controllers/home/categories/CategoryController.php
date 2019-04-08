@@ -25,7 +25,7 @@ class CategoryController extends Controller
         }
         $newproduct = Product::with('images')->orderBy('id','DESC')->LIMIT(8)->get()->toArray();
         $saleproduct = Product::with('images')->where('priceSale','!=',0)->get()->toArray();
-        $hotproduct = Order_detail::with('products')->selectRaw('product_id, sum(quantity) as total' )->groupBy('product_id')->take(10)->get();
+        $hotproduct = Order_detail::with('products')->selectRaw('product_id, sum(quantity) as total' )->groupBy('product_id')->orderBy('total', 'DESC')->take(10)->get();
         
         return view('home.index', compact('categories','products','newproduct','saleproduct','hotproduct'));
     }
