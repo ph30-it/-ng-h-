@@ -46,7 +46,7 @@
               <!-- search box -->
               <div class="aa-search-box">
                 <div class="form-group">
-                  <form method="POST" action="{{ route('search-product') }}">
+                  <form method="GET" action="{{ route('search-product') }}">
                     @csrf
                     <input type="text" name="search_product" id="search_product" class="form-control search-input input-lg" autocomplete="off" placeholder="Search product " />
                   </form>

@@ -45,7 +45,7 @@ class UserController extends Controller
             'email'=>'required',
             'password'=>'required',
         ]);
-       try{ ê
+       try{ 
         $data= $request->all(); 
         User::create($data);
         return redirect()->route('index-user')->with('status','thêm thành công');

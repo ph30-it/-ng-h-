@@ -26,6 +26,12 @@ class OrderController extends Controller
         }else{
             return redirect()->intended('account')->with('status','Bạn phải đăng nhập mới được sử dụng chức năng Order!');
         }*/
+        if(Cart::getTotalQuantity() == 0)
+        {
+            echo "<script>alert('Vui lòng mua hàng để thanh toán!')
+            window.location ='".url('/')."';
+            </script>";
+        }
         return view('home.cart.checkout');
     }
 

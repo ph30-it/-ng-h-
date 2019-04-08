@@ -33,6 +33,22 @@
             <div class="col-md-8">
               <div class="checkout-left">
                 <div class="panel-group" >
+                  @if(count($errors) > 0)
+                    <div class="alert alert-danger">
+                      <ul>
+                          @foreach ($errors->all() as $error)
+                              <li>{!! $error !!}</li>
+                          @endforeach
+                      </ul>
+                    </div>
+                    @endif
+                    @if (Session()->has('flash_level'))
+                    <div class="alert alert-success">
+                      <ul>
+                          {!! Session::get('flash_massage') !!}
+                      </ul>
+                    </div>
+                    @endif
                   <!-- Shipping Address -->
                   <div class="panel panel-default aa-checkout-billaddress">
                     <div class="panel-heading">
