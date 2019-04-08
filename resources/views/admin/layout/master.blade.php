@@ -187,8 +187,14 @@
                             <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
 
                             <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
-
-                            <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
+                            <a href="{{ route('logout') }}" style="font-size: 100%; color: green;" 
+                            onclick="event.preventDefault();
+                              document.getElementById('logout-form').submit();">
+                              Logout</a>
+                              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                  @csrf
+                              </form>.
+                            
                         </div>
                     </div>
 
